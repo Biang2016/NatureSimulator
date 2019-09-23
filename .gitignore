@@ -1,0 +1,7 @@
+.vs/
+Temp/
+obj/
+Library/
+Release/
+.idea/
+**/.DS_Store

@@ -1,0 +1,992 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6615354867983710406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -501586927, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499944
+    y: 499620
+    width: 180
+    height: 72
+  GUID: x1PNkUyK2EegG/SkPDhCAg
+  Type: 1600
+  Parent: S881QHgKHkOgMQ4ekh5hxA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - Lf6DktPEPkqJr5C1k5eBgA
+  - 0VljCgzMKEiLY3fLISbAfA
+  InternalIndex: 10
+  IsDynamic: 0
+--- !u!114 &-5807204701132584368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 2
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499692
+    y: 499728
+    width: 180
+    height: 72
+  GUID: Lf6DktPEPkqJr5C1k5eBgA
+  Type: 200
+  Parent: x1PNkUyK2EegG/SkPDhCAg
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 1
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 11
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.GrowUp
+    ShortName: GrowUp
+    CallSpec: GrowUp
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.GrowUp
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &-5720592359566798928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499536
+    y: 500292
+    width: 180
+    height: 72
+  GUID: I24YZ9IMHUmh9UwC7dGqNg
+  Type: 200
+  Parent: 9sCGKVPrQEiwRqUruXQVPw
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 1
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.FindMate
+    ShortName: FindMate
+    CallSpec: FindMate
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.FindMate
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &-4560418877804969031
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -501586927, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Wandering
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 500340
+    y: 499872
+    width: 180
+    height: 72
+  GUID: R8f79kPMlUS7WBl79IF7pA
+  Type: 1600
+  Parent: 0VljCgzMKEiLY3fLISbAfA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - HAj9fqkCWkC1sFAOigHwFw
+  - PfWX6kOmwkua4tCPrlhrAA
+  InternalIndex: 7
+  IsDynamic: 0
+--- !u!114 &-3589552624487873199
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1444294134, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Selector
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499944
+    y: 500052
+    width: 180
+    height: 72
+  GUID: 0VljCgzMKEiLY3fLISbAfA
+  Type: 1200
+  Parent: x1PNkUyK2EegG/SkPDhCAg
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - MvuEFWk2sUaaA067vtXDwg
+  - 9sCGKVPrQEiwRqUruXQVPw
+  - mDAicFSo8E2JBoPWWI3QrA
+  - R8f79kPMlUS7WBl79IF7pA
+  InternalIndex: 9
+--- !u!114 &-1660016586286946118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -501586927, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: ChasePrey
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 500100
+    y: 500184
+    width: 180
+    height: 72
+  GUID: mDAicFSo8E2JBoPWWI3QrA
+  Type: 1600
+  Parent: 0VljCgzMKEiLY3fLISbAfA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - qPuZ6PrDM0KVdu8DCvNvNg
+  - LdEK0wP9aEum4KsJCea1og
+  InternalIndex: 3
+  IsDynamic: 0
+--- !u!114 &-1348364974603018728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499308
+    y: 500004
+    width: 180
+    height: 72
+  GUID: aPaakmqfqEqq9ZQVF3BAhg
+  Type: 200
+  Parent: MvuEFWk2sUaaA067vtXDwg
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 2
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.FindPredators
+    ShortName: FindPredators
+    CallSpec: FindPredators
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.FindPredators
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &-1010056451222749038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 5
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499728
+    y: 500292
+    width: 180
+    height: 72
+  GUID: tkDuePsd5UW2pv5QEFVdiQ
+  Type: 200
+  Parent: 9sCGKVPrQEiwRqUruXQVPw
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 13
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.MoveToMate
+    ShortName: MoveToMate
+    CallSpec: MoveToMate
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToMate
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &-928684280852369696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 1
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499932
+    y: 500292
+    width: 180
+    height: 72
+  GUID: qPuZ6PrDM0KVdu8DCvNvNg
+  Type: 200
+  Parent: mDAicFSo8E2JBoPWWI3QrA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 4
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.FindPreys
+    ShortName: FindPreys
+    CallSpec: FindPreys
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.FindPreys
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &-902030818706267898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -501586927, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: AvoidPredator
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499500
+    y: 499884
+    width: 180
+    height: 72
+  GUID: MvuEFWk2sUaaA067vtXDwg
+  Type: 1600
+  Parent: 0VljCgzMKEiLY3fLISbAfA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - aPaakmqfqEqq9ZQVF3BAhg
+  - Bx1Qzv0ZXEqEmwY8VCDv3Q
+  InternalIndex: 8
+  IsDynamic: 0
+--- !u!114 &-98177274247576851
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 3
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 500232
+    y: 500040
+    width: 180
+    height: 72
+  GUID: HAj9fqkCWkC1sFAOigHwFw
+  Type: 200
+  Parent: R8f79kPMlUS7WBl79IF7pA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 6
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.Wander
+    ShortName: Wander
+    CallSpec: Wander
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.Wander
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 849302148, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Dot
+  m_EditorClassIdentifier: 
+  AllNodes:
+  - {fileID: 2488143722313489527}
+  - {fileID: -5720592359566798928}
+  - {fileID: -1348364974603018728}
+  - {fileID: -1660016586286946118}
+  - {fileID: -928684280852369696}
+  - {fileID: 3860163528179721773}
+  - {fileID: -98177274247576851}
+  - {fileID: -4560418877804969031}
+  - {fileID: -902030818706267898}
+  - {fileID: -3589552624487873199}
+  - {fileID: -6615354867983710406}
+  - {fileID: -5807204701132584368}
+  - {fileID: 5990241452072950195}
+  - {fileID: -1010056451222749038}
+  - {fileID: 3450449931644654156}
+  - {fileID: 5679205567101396385}
+  SeparatorPos:
+    serializedVersion: 2
+    x: 1
+    y: 0
+    width: 150
+    height: 100
+  PropsScrollPos: {x: 0, y: 0}
+  ZoomLevel: 1
+  ViewCenter: {x: 499327.78, y: 499570.25}
+  Namespace: 
+  ClassName: 
+  AssetFolder: 
+  BaseClass: 
+  TreeUpdateMode: 0
+  IsSubtreeOnly: 0
+  EnableDebugLogNodes: 1
+  EnableLiveUpdate: 1
+  AddClassNamePrefix: 1
+  RequiresInit: 0
+  GUID: P+D8lcFaO0uyxGpa3x2lyA
+  RequiredComponents: []
+  CodeKey: ys5qtPz6bE2j+CdGd8QkOg
+  SchemaVersion: 1
+  ___GenerateNodeComments: 0
+  ___GenerateNodeTrace: 0
+--- !u!114 &2488143722313489527
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -501586927, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Mate
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499704
+    y: 500184
+    width: 180
+    height: 72
+  GUID: 9sCGKVPrQEiwRqUruXQVPw
+  Type: 1600
+  Parent: 0VljCgzMKEiLY3fLISbAfA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - I24YZ9IMHUmh9UwC7dGqNg
+  - tkDuePsd5UW2pv5QEFVdiQ
+  InternalIndex: 0
+  IsDynamic: 0
+--- !u!114 &3450449931644654156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 6
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 500160
+    y: 500292
+    width: 180
+    height: 72
+  GUID: LdEK0wP9aEum4KsJCea1og
+  Type: 200
+  Parent: mDAicFSo8E2JBoPWWI3QrA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 14
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.MoveToPrey
+    ShortName: MoveToPrey
+    CallSpec: MoveToPrey
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToPrey
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &3860163528179721773
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -217198319, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 500172
+    y: 499524
+    width: 32
+    height: 32
+  GUID: S881QHgKHkOgMQ4ekh5hxA
+  Type: 0
+  Parent: 
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children:
+  - x1PNkUyK2EegG/SkPDhCAg
+  InternalIndex: 5
+--- !u!114 &5679205567101396385
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 7
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 500448
+    y: 500040
+    width: 180
+    height: 72
+  GUID: PfWX6kOmwkua4tCPrlhrAA
+  Type: 200
+  Parent: R8f79kPMlUS7WBl79IF7pA
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 15
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.MoveToWander
+    ShortName: MoveToWander
+    CallSpec: MoveToWander
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToWander
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
+--- !u!114 &5990241452072950195
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858656779, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
+  m_Name: Action 4
+  m_EditorClassIdentifier: 
+  EditorRect:
+    serializedVersion: 2
+    x: 499500
+    y: 500004
+    width: 180
+    height: 72
+  GUID: Bx1Qzv0ZXEqEmwY8VCDv3Q
+  Type: 200
+  Parent: MvuEFWk2sUaaA067vtXDwg
+  RandomWeight: 1
+  PublishedState: 
+  PublishState: 0
+  resultBehaviour: 0
+  Owner: {fileID: 11400000}
+  Children: []
+  InternalIndex: 12
+  Latch: 1
+  LatchTimeout: 0.2
+  LatchJumpTarget: 
+  LatchCondition:
+    boolSource: 0
+    constant: 0
+    Call:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      ShortName: 
+      CallSpec: 
+      ReturnValue: 
+      MenuDescription: 
+      Parameters:
+        keys: []
+        values: []
+        ParameterOrder: []
+        ParameterTypes: []
+        ParameterNames: []
+    Field:
+      Declaration: 
+      ClassLevelDeclaration: 
+      TargetObject: 
+      FullName: 
+      CallSpec: 
+      ReturnValue: 
+      CollectionType: 
+      ShortName: 
+  LatchConditionIfFalse: 0
+  LatchTimeMode: 0
+  entryLimitMode: 0
+  CountLimit: 1
+  RateLimitSeconds: 1
+  RateLimitTimeMode: 0
+  ActionType: 1
+  Call:
+    Declaration: 
+    ClassLevelDeclaration: 
+    TargetObject: this
+    FullName: instinctai.usr.behaviours.Dot.MoveToEscape
+    ShortName: MoveToEscape
+    CallSpec: MoveToEscape
+    ReturnValue: com.kupio.instinctai.NodeVal
+    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToEscape
+    Parameters:
+      keys: []
+      values: []
+      ParameterOrder: []
+      ParameterTypes: []
+      ParameterNames: []
