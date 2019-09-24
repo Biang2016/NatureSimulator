@@ -134,14 +134,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 0
   GrowUpRate: 0
-  SpeciesSpeedFactor: 1
-  MateMatureSizeThreshold: 30
+  SpeciesSpeedFactor: 1.2
+  MateMatureSizeThreshold: 50
   MateSizeDiffThreshold: 0.25
-  MinSize: 20
+  MinSize: 40
   MaxSize: 60
   ChildrenSizeComposition:
-  - 0.2
-  - 0.2
   - 0.7
   Collider2D: {fileID: 8093670360472547995}
   SpriteRenderer: {fileID: 8567401616308927954}

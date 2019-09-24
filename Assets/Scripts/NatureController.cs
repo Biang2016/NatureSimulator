@@ -16,7 +16,10 @@ public class NatureController : MonoSingleton<NatureController>
     public float WanderingSpeedFactor = 0.5f;
     public float FindingMateSpeedFactor = 1.0f;
 
-    public int NumberEachSpecies = 10;
+    public int Blue_NumberEachSpecies = 10;
+    public int Green_NumberEachSpecies = 10;
+    public int Red_NumberEachSpecies = 10;
+    public int Yellow_NumberEachSpecies = 10;
     public float NutritionRatio = 0.6f;
     public int SpeciesCountUpperLimit = 50;
 
@@ -32,10 +35,14 @@ public class NatureController : MonoSingleton<NatureController>
             species.name = enumName + "_Species";
         }
 
-        foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
-        {
-            kv.Value.SpawnDots(NumberEachSpecies);
-        }
+        AllSpecies[Species.SpeciesTypes.Black].SpawnDots(Blue_NumberEachSpecies);
+        AllSpecies[Species.SpeciesTypes.Green].SpawnDots(Green_NumberEachSpecies);
+        AllSpecies[Species.SpeciesTypes.Red].SpawnDots(Red_NumberEachSpecies);
+        AllSpecies[Species.SpeciesTypes.Yellow].SpawnDots(Yellow_NumberEachSpecies);
+        //foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
+        //{
+        //    kv.Value.SpawnDots(NumberEachSpecies);
+        //}
     }
 
     public void GetCirclePoints(float radius, int numberCount)

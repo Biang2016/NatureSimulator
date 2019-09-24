@@ -322,7 +322,10 @@ MonoBehaviour:
   ChasingSpeedFactor: 1.6
   WanderingSpeedFactor: 0.4
   FindingMateSpeedFactor: 0.8
-  NumberEachSpecies: 20
+  Blue_NumberEachSpecies: 25
+  Green_NumberEachSpecies: 100
+  Red_NumberEachSpecies: 10
+  Yellow_NumberEachSpecies: 4
   NutritionRatio: 1
   SpeciesCountUpperLimit: 100
   ColorSet:

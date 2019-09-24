@@ -134,11 +134,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 0
   GrowUpRate: 0
-  SpeciesSpeedFactor: 1.5
-  MateMatureSizeThreshold: 40
+  SpeciesSpeedFactor: 1.6
+  MateMatureSizeThreshold: 15
   MateSizeDiffThreshold: 0.2
-  MinSize: 25
-  MaxSize: 50
+  MinSize: 10
+  MaxSize: 20
   ChildrenSizeComposition:
   - 0.5
   - 0.5

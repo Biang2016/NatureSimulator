@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 0
   GrowUpRate: 0.5
-  SpeciesSpeedFactor: 1
+  SpeciesSpeedFactor: 1.4
   MateMatureSizeThreshold: 5
   MateSizeDiffThreshold: 0.35
   MinSize: 2
