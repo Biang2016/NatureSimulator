@@ -132,19 +132,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5402dcecfe448d08925ed709d97d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MateMatureSizeThreshold: 100
-  MateSizeDiffThreshold: 0.15
-  MaxSize: 150
+  size: 0
+  GrowUpRate: 0
+  SpeciesSpeedFactor: 1
+  MateMatureSizeThreshold: 40
+  MateSizeDiffThreshold: 0.5
+  MinSize: 30
+  MaxSize: 70
   ChildrenSizeComposition:
-  - 0.3
-  - 0.3
-  DotColor: {r: 1, g: 0, b: 0, a: 1}
+  - 0.8
   Collider2D: {fileID: 1900596493306845922}
   SpriteRenderer: {fileID: 8567401616308927954}
   Rigidbody2D: {fileID: 4818451378214866533}
   M_SpeciesType: 1
-  My_Speceis: {fileID: 0}
+  My_Species: {fileID: 0}
+  Destroyed: 0
   escapingFrom: {x: 0, y: 0, z: 0}
   preyLocation: {x: 0, y: 0, z: 0}
-  wanderDestination: {x: 0, y: 0, z: 0}
   mateDestination: {x: 0, y: 0, z: 0}
+  wanderDestination: {x: 0, y: 0, z: 0}
+  isWandering: 0

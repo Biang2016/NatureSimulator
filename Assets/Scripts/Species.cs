@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using instinctai.usr.behaviours;
 using UnityEngine;
 
@@ -15,19 +16,25 @@ public class Species : PoolObject
 
     public void SpawnDots(int number)
     {
+        StartCoroutine(Co_SpawnDots(number));
+    }
+
+    IEnumerator Co_SpawnDots(int number)
+    {
         for (int i = 0; i < number; i++)
         {
-            SpawnDot(Random.Range(NatureController.Instance.SizeRangeLow, NatureController.Instance.SizeRangeUp), new Vector2(Random.Range(-860f, 860), Random.Range(-440f, 440)));
+            SpawnDot(0, NatureController.GetRandomPos(), true);
+            yield return new WaitForEndOfFrame();
         }
     }
 
-    public void SpawnDot(float size, Vector2 pos)
+    public void SpawnDot(float size, Vector2 pos, bool randomSize = false)
     {
         GameObject prefab = (GameObject) Resources.Load(PrefabNamesForSpecies[M_SpeciesType].ToString());
         GameObject dotGO = Instantiate(prefab);
         dotGO.transform.SetParent(transform);
         Dot dot = dotGO.GetComponent<Dot>();
-        dot.Init(size, this);
+        dot.Init(this, size, randomSize);
         dot.transform.position = pos;
         Dots.Add(dot);
     }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using instinctai.usr.behaviours;
 using UnityEngine;
+using Random = System.Random;
 
 public class NatureController : MonoSingleton<NatureController>
 {
@@ -14,13 +16,13 @@ public class NatureController : MonoSingleton<NatureController>
     public float WanderingSpeedFactor = 0.5f;
     public float FindingMateSpeedFactor = 1.0f;
 
-    public float SizeRangeUp = 100f;
-    public float SizeRangeLow = 20f;
     public int NumberEachSpecies = 10;
     public float NutritionRatio = 0.6f;
+    public int SpeciesCountUpperLimit = 50;
 
     void Start()
     {
+        //GetCirclePoints(540f, 128);
         foreach (string enumName in Enum.GetNames(typeof(Species.SpeciesTypes)))
         {
             Species species = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Species].AllocateGameObject<Species>(transform);
@@ -36,16 +38,60 @@ public class NatureController : MonoSingleton<NatureController>
         }
     }
 
+    public void GetCirclePoints(float radius, int numberCount)
+    {
+        string result = "";
+        float angle = 360f / numberCount;
+        for (int i = 0; i < numberCount; i++)
+        {
+            float x = radius * Mathf.Sin(Mathf.Deg2Rad * i * angle);
+            float y = radius * Mathf.Cos(Mathf.Deg2Rad * i * angle);
+            result += "  - {x: " + x + ", y: " + y + "}\n";
+        }
+
+        Debug.Log(result);
+    }
+
+    public static Vector2 GetRandomPos(float radius = 0f)
+    {
+        float distance = UnityEngine.Random.Range(0, 540f - radius);
+        float angle = UnityEngine.Random.Range(0, 360f);
+        float x = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
+        float y = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
+        return new Vector2(x, y);
+    }
+
     public Color[] ColorSet;
 
     public Dictionary<Species.SpeciesTypes, Species> AllSpecies = new Dictionary<Species.SpeciesTypes, Species>();
 
-    public void DestoryDot(Dot dot)
+    public void DestroyDot(Dot dot)
     {
-        AllSpecies[dot.M_SpeciesType].Dots.Remove(dot);
-        dot.transform.position = Vector2.one * -3000;
+        dot.Destroyed = true;
+        foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
+        {
+            kv.Value.Dots.Remove(dot);
+        }
+
+        dot.transform.position = Vector2.one * -2000;
         dot.Collider2D.enabled = false;
-        Destroy(dot);
+        dot.ResetTree();
+        dot.Valid(false);
+        dot.Rigidbody2D.simulated = false;
+        dot.Rigidbody2D.velocity = Vector2.zero;
+        StartCoroutine(Co_Destroy(dot));
+    }
+
+    IEnumerator Co_Destroy(Dot dot)
+    {
+        yield return new WaitForSeconds(1f);
+        try
+        {
+            DestroyImmediate(dot.gameObject);
+        }
+        catch
+        {
+        }
     }
 
     public Dot FindNearestPredator(Dot callingDot)

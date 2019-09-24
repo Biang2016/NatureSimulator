@@ -5,7 +5,9 @@
  * It is safe to edit this file.
  */
 
+using System;
 using com.kupio.instinctai;
+using UnityEngine.UIElements;
 
 namespace instinctai.usr.behaviours
 {
@@ -13,7 +15,7 @@ namespace instinctai.usr.behaviours
 
     public partial class Dot : MonoBehaviour
     {
-        private float size;
+        [SerializeField] private float size;
 
         public float Size
         {
@@ -25,25 +27,36 @@ namespace instinctai.usr.behaviours
             }
         }
 
+        public float GrowUpRate;
+        public float SpeciesSpeedFactor;
         public float MateMatureSizeThreshold;
         public float MateSizeDiffThreshold;
+        public float MinSize;
         public float MaxSize;
         public float[] ChildrenSizeComposition;
 
-        public Color DotColor;
         public CircleCollider2D Collider2D;
         [SerializeField] private SpriteRenderer SpriteRenderer;
-        [SerializeField] private Rigidbody2D Rigidbody2D;
+        public Rigidbody2D Rigidbody2D;
 
-        public float BasicSpeed => Mathf.Max(40, 50 / Size) * NatureController.Instance.NormalSpeed;
+        public float BasicSpeed => Mathf.Min(100, 50 / Size + 0.01f * Size) * NatureController.Instance.NormalSpeed * SpeciesSpeedFactor;
 
         public Species.SpeciesTypes M_SpeciesType;
-        public Species My_Speceis;
+        public Species My_Species;
 
-        public void Init(float _size, Species species)
+        public void Init(Species species, float _size, bool randomSize = false)
         {
-            Size = _size;
-            My_Speceis = species;
+            if (randomSize)
+            {
+                Size = Random.Range(MinSize, MaxSize);
+            }
+            else
+            {
+                Size = _size;
+            }
+
+            My_Species = species;
+            M_SpeciesType = species.M_SpeciesType;
             SpriteRenderer.color = NatureController.Instance.ColorSet[(int) M_SpeciesType];
         }
 
@@ -83,10 +96,29 @@ namespace instinctai.usr.behaviours
             }
         }
 
+        public bool Destroyed = false;
+
         public NodeVal GrowUp()
         {
-            Size = Mathf.Min(MaxSize, 0.05f * Size * Time.deltaTime + Size);
+            if (Destroyed) return NodeVal.Success;
+            Size = Mathf.Min(MaxSize, GrowUpRate * Size * Time.deltaTime + Size);
+            try
+            {
+                if (Vector2.Distance(transform.position, Vector2.zero) > 540f)
+                {
+                    NatureController.Instance.DestroyDot(this);
+                }
+            }
+            catch
+            {
+            }
+
             return NodeVal.Success;
+        }
+
+        public void Valid(bool valid)
+        {
+            this.valid = valid;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -97,19 +129,20 @@ namespace instinctai.usr.behaviours
                 if (o.IsPreyOf(this))
                 {
                     Size = (int) Mathf.Sqrt(Size * Size + o.Size * o.Size * NatureController.Instance.NutritionRatio);
-                    NatureController.Instance.DestoryDot(o);
+                    NatureController.Instance.DestroyDot(o);
                     return;
                 }
 
                 if (o.IsMateOf(this))
                 {
+                    if (My_Species.Dots.Count >= NatureController.Instance.SpeciesCountUpperLimit) return;
                     Dot mother = o.Size > Size ? o : this;
                     Dot father = o.Size > Size ? this : o;
                     float motherLeftSize = 1f;
                     for (int i = 0; i < ChildrenSizeComposition.Length; i++)
                     {
                         motherLeftSize -= ChildrenSizeComposition[i] * ChildrenSizeComposition[i];
-                        My_Speceis.SpawnDot(ChildrenSizeComposition[i] * mother.Size, transform.position);
+                        My_Species.SpawnDot(ChildrenSizeComposition[i] * mother.Size, transform.position, false);
                     }
 
                     mother.Size = Mathf.Sqrt(motherLeftSize) * mother.Size;
@@ -139,14 +172,14 @@ namespace instinctai.usr.behaviours
 
         public NodeVal MoveToEscape()
         {
-            wanderDestination = Vector3.zero;
+            isWandering = false;
             Rigidbody2D.velocity = Vector3.Normalize(-escapingFrom + transform.position) * BasicSpeed * NatureController.Instance.EscapingSpeedFactor;
             return NodeVal.Success;
         }
 
         #endregion
 
-        #region ChasePreys
+        #region ChasePreys  
 
         public Vector3 preyLocation = new Vector3(0, 0);
 
@@ -166,32 +199,8 @@ namespace instinctai.usr.behaviours
 
         public NodeVal MoveToPrey()
         {
-            wanderDestination = Vector3.zero;
+            isWandering = false;
             Rigidbody2D.velocity = Vector3.Normalize(preyLocation - transform.position) * BasicSpeed * NatureController.Instance.ChasingSpeedFactor;
-            return NodeVal.Success;
-        }
-
-        #endregion
-
-        #region  Wandering
-
-        public Vector3 wanderDestination = new Vector3(0, 0);
-
-        public NodeVal Wander()
-        {
-            if (wanderDestination.Equals(Vector3.zero))
-            {
-                float x = Random.Range(-960, 960f);
-                float y = Random.Range(-540, 540f);
-                wanderDestination = new Vector2(x, y);
-            }
-
-            return NodeVal.Success;
-        }
-
-        public NodeVal MoveToWander()
-        {
-            Rigidbody2D.velocity = Vector3.Normalize(wanderDestination - transform.position) * BasicSpeed * NatureController.Instance.WanderingSpeedFactor;
             return NodeVal.Success;
         }
 
@@ -208,7 +217,7 @@ namespace instinctai.usr.behaviours
                 return NodeVal.Fail;
             }
 
-            Dot mateDot = My_Speceis.FindNearestMate(this);
+            Dot mateDot = My_Species.FindNearestMate(this);
             if (mateDot != null)
             {
                 mateDestination = mateDot.transform.position;
@@ -222,8 +231,40 @@ namespace instinctai.usr.behaviours
 
         public NodeVal MoveToMate()
         {
-            wanderDestination = Vector3.zero;
+            isWandering = false;
             Rigidbody2D.velocity = Vector3.Normalize(mateDestination - transform.position) * BasicSpeed * NatureController.Instance.FindingMateSpeedFactor;
+            return NodeVal.Success;
+        }
+
+        #endregion
+
+        #region  Wandering
+
+        public Vector3 wanderDestination = new Vector3(0, 0);
+
+        public bool isWandering = false;
+
+        public NodeVal Wander()
+        {
+            if (!isWandering)
+            {
+                isWandering = true;
+                wanderDestination = NatureController.GetRandomPos(Size);
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, wanderDestination) < 5f)
+                {
+                    isWandering = false;
+                }
+            }
+
+            return NodeVal.Success;
+        }
+
+        public NodeVal MoveToWander()
+        {
+            Rigidbody2D.velocity = Vector3.Normalize(wanderDestination - transform.position) * BasicSpeed * NatureController.Instance.WanderingSpeedFactor;
             return NodeVal.Success;
         }
 
