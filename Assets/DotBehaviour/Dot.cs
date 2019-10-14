@@ -6,6 +6,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using com.kupio.instinctai;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,21 @@ namespace instinctai.usr.behaviours
 
     public partial class Dot : MonoBehaviour
     {
+        private int i = 0;
+
+        private void Update()
+        {
+            if (i < NatureController.Instance.UpdateNFrames)
+            {
+                i++;
+            }
+            else
+            {
+                i = 0;
+                UpdateAI();
+            }
+        }
+
         [SerializeField] private float size;
 
         public float Size

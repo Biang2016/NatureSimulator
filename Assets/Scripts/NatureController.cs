@@ -22,6 +22,8 @@ public class NatureController : MonoSingleton<NatureController>
     public int Yellow_NumberEachSpecies = 10;
     public float NutritionRatio = 0.6f;
     public int SpeciesCountUpperLimit = 50;
+    
+    public int UpdateNFrames = 10;
 
     void Start()
     {
