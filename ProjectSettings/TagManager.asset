@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - GeoElement
+  - ConfirmPanel
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GeoElement
+    uniqueID: 2493565347
+    locked: 0
+  - name: ConfirmPanel
+    uniqueID: 1740610109
     locked: 0

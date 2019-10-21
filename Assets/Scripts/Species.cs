@@ -5,14 +5,9 @@ using UnityEngine;
 
 public class Species : PoolObject
 {
-    public List<Dot> Dots = new List<Dot>();
+    public List<Creature> Creatures = new List<Creature>();
 
-    public void Init(SpeciesTypes speciesType)
-    {
-        M_SpeciesType = speciesType;
-    }
-
-    public SpeciesTypes M_SpeciesType;
+    public GeoGroupInfo MyGeoGroupInfo;
 
     public void SpawnDots(int number)
     {
@@ -30,48 +25,32 @@ public class Species : PoolObject
 
     public void SpawnDot(float size, Vector2 pos, bool randomSize = false)
     {
-        GameObject prefab = (GameObject) Resources.Load(PrefabNamesForSpecies[M_SpeciesType].ToString());
-        GameObject dotGO = Instantiate(prefab);
-        dotGO.transform.SetParent(transform);
-        Dot dot = dotGO.GetComponent<Dot>();
-        dot.Init(this, size, randomSize);
-        dot.transform.position = pos;
-        Dots.Add(dot);
+        GameObject prefab = (GameObject) Resources.Load("Creature");
+        GameObject CreatureGO = Instantiate(prefab);
+        CreatureGO.transform.SetParent(transform);
+        Creature creature = CreatureGO.GetComponent<Creature>();
+        creature.Init(this, size, randomSize);
+        creature.transform.position = pos;
+        Creatures.Add(creature);
     }
 
-    public enum SpeciesTypes
-    {
-        Black = 0,
-        Red = 1,
-        Yellow = 2,
-        Green = 3,
-    }
-
-    public static Dictionary<Species.SpeciesTypes, GameObjectPoolManager.PrefabNames> PrefabNamesForSpecies = new Dictionary<SpeciesTypes, GameObjectPoolManager.PrefabNames>
-    {
-        {SpeciesTypes.Black, GameObjectPoolManager.PrefabNames.BlackDot},
-        {SpeciesTypes.Red, GameObjectPoolManager.PrefabNames.RedDot},
-        {SpeciesTypes.Yellow, GameObjectPoolManager.PrefabNames.YellowDot},
-        {SpeciesTypes.Green, GameObjectPoolManager.PrefabNames.GreenDot},
-    };
-
-    public Dot FindNearestMate(Dot callingDot)
+    public Creature FindNearestMate(Creature callingCreature)
     {
         float distance = 99999f;
-        Dot mateDot = null;
-        foreach (Dot dot in Dots)
+        Creature mateCreature = null;
+        foreach (Creature creature in Creatures)
         {
-            if (dot != callingDot && dot.IsMateOf(callingDot))
+            if (creature != callingCreature && creature.IsMateOf(callingCreature))
             {
-                float tempDic = Vector2.Distance(dot.transform.position, callingDot.transform.position);
+                float tempDic = Vector2.Distance(creature.transform.position, callingCreature.transform.position);
                 if (distance < tempDic)
                 {
-                    mateDot = dot;
+                    mateCreature = creature;
                     distance = tempDic;
                 }
             }
         }
 
-        return mateDot;
+        return mateCreature;
     }
 }

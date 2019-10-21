@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 849302148, guid: b1299c68da958794bbdba203272d5fc4, type: 3}
-  m_Name: Dot
+  m_Name: Creature
   m_EditorClassIdentifier: 
   AllNodes:
   - {fileID: 2488143722313489527}
@@ -672,8 +672,8 @@ MonoBehaviour:
     width: 150
     height: 100
   PropsScrollPos: {x: 0, y: 0}
-  ZoomLevel: 2
-  ViewCenter: {x: 499226.4, y: 499360.9}
+  ZoomLevel: 1
+  ViewCenter: {x: 498861.25, y: 499459.38}
   Namespace: 
   ClassName: 
   AssetFolder: 

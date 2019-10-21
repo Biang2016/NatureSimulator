@@ -14,12 +14,22 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         RedDot,
         GreenDot,
         Species,
+        GeoButton,
+        GeoElement,
+        GeoGroup,
+        ButtonOfSpecies,
+        PaletteColorButton,
     }
     
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
     {
         {PrefabNames.Species, 4},
+        {PrefabNames.GeoButton, 5},
+        {PrefabNames.GeoElement, 5},
+        {PrefabNames.GeoGroup, 5},
+        {PrefabNames.ButtonOfSpecies, 5},
+        {PrefabNames.PaletteColorButton, 5},
     };
 
     public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>

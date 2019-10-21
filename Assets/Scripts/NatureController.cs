@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using instinctai.usr.behaviours;
 using UnityEngine;
-using Random = System.Random;
 
 public class NatureController : MonoSingleton<NatureController>
 {
@@ -16,35 +16,39 @@ public class NatureController : MonoSingleton<NatureController>
     public float WanderingSpeedFactor = 0.5f;
     public float FindingMateSpeedFactor = 1.0f;
 
-    public int Blue_NumberEachSpecies = 10;
-    public int Green_NumberEachSpecies = 10;
-    public int Red_NumberEachSpecies = 10;
-    public int Yellow_NumberEachSpecies = 10;
     public float NutritionRatio = 0.6f;
     public int SpeciesCountUpperLimit = 50;
-    
+
     public int UpdateNFrames = 10;
 
-    void Start()
+    public void RecreateAllSpecies()
     {
-        //GetCirclePoints(540f, 128);
-        foreach (string enumName in Enum.GetNames(typeof(Species.SpeciesTypes)))
+        ClearAll();
+
+        foreach (KeyValuePair<string, GeoGroupInfo> kv in AllGeoGroupInfo)
         {
             Species species = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Species].AllocateGameObject<Species>(transform);
-            Species.SpeciesTypes sp = (Species.SpeciesTypes) Enum.Parse(typeof(Species.SpeciesTypes), enumName);
-            species.Init(sp);
-            AllSpecies.Add(sp, species);
-            species.name = enumName + "_Species";
+            species.name = kv.Key + "_Species";
+            species.MyGeoGroupInfo = kv.Value;
+            species.SpawnDots(1);
+            AllSpecies.Add(kv.Key, species);
+        }
+    }
+
+    public void ClearAll()
+    {
+        foreach (KeyValuePair<string, Species> kv in AllSpecies)
+        {
+            foreach (Creature c in kv.Value.Creatures.ToList())
+            {
+                DestroyCreature(c);
+            }
+
+            kv.Value.Creatures.Clear();
+            kv.Value.PoolRecycle();
         }
 
-        AllSpecies[Species.SpeciesTypes.Black].SpawnDots(Blue_NumberEachSpecies);
-        AllSpecies[Species.SpeciesTypes.Green].SpawnDots(Green_NumberEachSpecies);
-        AllSpecies[Species.SpeciesTypes.Red].SpawnDots(Red_NumberEachSpecies);
-        AllSpecies[Species.SpeciesTypes.Yellow].SpawnDots(Yellow_NumberEachSpecies);
-        //foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
-        //{
-        //    kv.Value.SpawnDots(NumberEachSpecies);
-        //}
+        AllSpecies.Clear();
     }
 
     public void GetCirclePoints(float radius, int numberCount)
@@ -63,7 +67,7 @@ public class NatureController : MonoSingleton<NatureController>
 
     public static Vector2 GetRandomPos(float radius = 0f)
     {
-        float distance = UnityEngine.Random.Range(0, 540f - radius);
+        float distance = UnityEngine.Random.Range(0, 5.2f - radius);
         float angle = UnityEngine.Random.Range(0, 360f);
         float x = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
         float y = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
@@ -72,54 +76,54 @@ public class NatureController : MonoSingleton<NatureController>
 
     public Color[] ColorSet;
 
-    public Dictionary<Species.SpeciesTypes, Species> AllSpecies = new Dictionary<Species.SpeciesTypes, Species>();
+    public Dictionary<string, Species> AllSpecies = new Dictionary<string, Species>();
+    public Dictionary<string, GeoGroupInfo> AllGeoGroupInfo = new Dictionary<string, GeoGroupInfo>();
 
-    public void DestroyDot(Dot dot)
+    public void DestroyCreature(Creature creature)
     {
-        dot.Destroyed = true;
-        foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
+        creature.Destroyed = true;
+        foreach (KeyValuePair<string, Species> kv in AllSpecies)
         {
-            kv.Value.Dots.Remove(dot);
+            kv.Value.Creatures.Remove(creature);
         }
 
-        dot.transform.position = Vector2.one * -2000;
-        dot.Collider2D.enabled = false;
-        dot.ResetTree();
-        dot.Valid(false);
-        dot.Rigidbody2D.simulated = false;
-        dot.Rigidbody2D.velocity = Vector2.zero;
-        StartCoroutine(Co_Destroy(dot));
+        creature.transform.position = Vector2.one * -2000;
+        creature.ResetTree();
+        creature.Valid(false);
+        creature.Rigidbody2D.simulated = false;
+        creature.Rigidbody2D.velocity = Vector2.zero;
+        StartCoroutine(Co_Destroy(creature));
     }
 
-    IEnumerator Co_Destroy(Dot dot)
+    IEnumerator Co_Destroy(Creature creature)
     {
         yield return new WaitForSeconds(1f);
         try
         {
-            DestroyImmediate(dot.gameObject);
+            DestroyImmediate(creature.gameObject);
         }
         catch
         {
         }
     }
 
-    public Dot FindNearestPredator(Dot callingDot)
+    public Creature FindNearestPredator(Creature callingDot)
     {
-        Dot nearDot = null;
+        Creature nearCreature = null;
         float distance = 9999f;
-        foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
+        foreach (KeyValuePair<string, Species> kv in AllSpecies)
         {
-            if (kv.Value.M_SpeciesType != callingDot.M_SpeciesType)
+            if (kv.Key.Equals(callingDot.M_SpeciesName))
             {
-                foreach (Dot dot in kv.Value.Dots)
+                foreach (Creature creature in kv.Value.Creatures)
                 {
-                    if (dot.IsPredatorOf(callingDot))
+                    if (callingDot.IsPredatorOf(callingDot))
                     {
-                        float tempDist = Vector2.Distance(dot.transform.position, callingDot.transform.position);
+                        float tempDist = Vector2.Distance(callingDot.transform.position, callingDot.transform.position);
                         if (tempDist < distance)
                         {
                             distance = tempDist;
-                            nearDot = dot;
+                            nearCreature = callingDot;
                         }
                     }
                 }
@@ -132,27 +136,27 @@ public class NatureController : MonoSingleton<NatureController>
         }
         else
         {
-            return nearDot;
+            return nearCreature;
         }
     }
 
-    public Dot FindNearestPrey(Dot callingDot)
+    public Creature FindNearestPrey(Creature callingCreature)
     {
-        Dot nearDot = null;
+        Creature nearCreature = null;
         float distance = 9999f;
-        foreach (KeyValuePair<Species.SpeciesTypes, Species> kv in AllSpecies)
+        foreach (KeyValuePair<string, Species> kv in AllSpecies)
         {
-            if (kv.Value.M_SpeciesType != callingDot.M_SpeciesType)
+            if (kv.Key != callingCreature.M_SpeciesName)
             {
-                foreach (Dot dot in kv.Value.Dots)
+                foreach (Creature creature in kv.Value.Creatures)
                 {
-                    if (dot.IsPreyOf(callingDot))
+                    if (creature.IsPreyOf(callingCreature))
                     {
-                        float tempDist = Vector2.Distance(dot.transform.position, callingDot.transform.position);
+                        float tempDist = Vector2.Distance(creature.transform.position, callingCreature.transform.position);
                         if (tempDist < distance)
                         {
                             distance = tempDist;
-                            nearDot = dot;
+                            nearCreature = creature;
                         }
                     }
                 }
@@ -165,7 +169,7 @@ public class NatureController : MonoSingleton<NatureController>
         }
         else
         {
-            return nearDot;
+            return nearCreature;
         }
     }
 }

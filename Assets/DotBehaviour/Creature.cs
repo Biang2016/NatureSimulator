@@ -14,8 +14,16 @@ namespace instinctai.usr.behaviours
 {
     using UnityEngine;
 
-    public partial class Dot : MonoBehaviour
+    public partial class Creature : MonoBehaviour
     {
+        //public float Life;
+        //public float Speed;
+        //public float Damage;
+        //public float FertilityRate;
+        //public float ChildrenSize;
+        //public float MatureSize;
+        //public float MinSize;
+
         private int i = 0;
 
         private void Update()
@@ -51,13 +59,12 @@ namespace instinctai.usr.behaviours
         public float MaxSize;
         public float[] ChildrenSizeComposition;
 
-        public CircleCollider2D Collider2D;
-        [SerializeField] private SpriteRenderer SpriteRenderer;
+        [SerializeField] private GeoGroup GeoGroup;
         public Rigidbody2D Rigidbody2D;
 
         public float BasicSpeed => Mathf.Min(100, 50 / Size + 0.01f * Size) * NatureController.Instance.NormalSpeed * SpeciesSpeedFactor;
 
-        public Species.SpeciesTypes M_SpeciesType;
+        public string M_SpeciesName;
         public Species My_Species;
 
         public void Init(Species species, float _size, bool randomSize = false)
@@ -71,14 +78,32 @@ namespace instinctai.usr.behaviours
                 Size = _size;
             }
 
+            GeoGroup?.PoolRecycle();
+            GeoGroup = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.GeoGroup].AllocateGameObject<GeoGroup>(transform);
+
             My_Species = species;
-            M_SpeciesType = species.M_SpeciesType;
-            SpriteRenderer.color = NatureController.Instance.ColorSet[(int) M_SpeciesType];
+            M_SpeciesName = species.MyGeoGroupInfo.Name;
+
+            foreach (GeoInfo gi in species.MyGeoGroupInfo.GeoInfos)
+            {
+                GeoElement ge = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.GeoElement].AllocateGameObject<GeoElement>(GeoGroup.transform);
+                GeoGroup.AllGeos.Add(ge);
+                GeoGroup.GeoGroupInfo = species.MyGeoGroupInfo;
+                ge.transform.localPosition = gi.Position;
+                ge.transform.rotation = gi.Rotation;
+                ge.Initialize(gi.GeoType, gi.Size, gi.Color, gi.SortingOrder);
+            }
         }
 
-        public bool IsPreyOf(Dot o)
+        void OnDestroy()
         {
-            if (o.M_SpeciesType != M_SpeciesType)
+            GeoGroup.PoolRecycle();
+            GeoGroup = null;
+        }
+
+        public bool IsPreyOf(Creature o)
+        {
+            if (o.M_SpeciesName != M_SpeciesName)
             {
                 return Size < NatureController.Instance.EatSizeThreshold * o.Size;
             }
@@ -88,9 +113,9 @@ namespace instinctai.usr.behaviours
             }
         }
 
-        public bool IsPredatorOf(Dot o)
+        public bool IsPredatorOf(Creature o)
         {
-            if (o.M_SpeciesType != M_SpeciesType)
+            if (o.M_SpeciesName != M_SpeciesName)
             {
                 return Size * NatureController.Instance.EatSizeThreshold > o.Size;
             }
@@ -100,9 +125,9 @@ namespace instinctai.usr.behaviours
             }
         }
 
-        public bool IsMateOf(Dot o)
+        public bool IsMateOf(Creature o)
         {
-            if (o.M_SpeciesType == M_SpeciesType && o.Size > MateMatureSizeThreshold && Size > MateMatureSizeThreshold)
+            if (o.M_SpeciesName != M_SpeciesName && o.Size > MateMatureSizeThreshold && Size > MateMatureSizeThreshold)
             {
                 return ((1f - o.MateSizeDiffThreshold) < (Size / o.Size)) && ((Size / o.Size) < (1f + o.MateSizeDiffThreshold));
             }
@@ -122,7 +147,7 @@ namespace instinctai.usr.behaviours
             {
                 if (Vector2.Distance(transform.position, Vector2.zero) > 540f)
                 {
-                    NatureController.Instance.DestroyDot(this);
+                    NatureController.Instance.DestroyCreature(this);
                 }
             }
             catch
@@ -139,21 +164,21 @@ namespace instinctai.usr.behaviours
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            Dot o = other.gameObject.GetComponent<Dot>();
+            Creature o = other.gameObject.GetComponent<Creature>();
             if (o != null)
             {
                 if (o.IsPreyOf(this))
                 {
                     Size = (int) Mathf.Sqrt(Size * Size + o.Size * o.Size * NatureController.Instance.NutritionRatio);
-                    NatureController.Instance.DestroyDot(o);
+                    NatureController.Instance.DestroyCreature(o);
                     return;
                 }
 
                 if (o.IsMateOf(this))
                 {
-                    if (My_Species.Dots.Count >= NatureController.Instance.SpeciesCountUpperLimit) return;
-                    Dot mother = o.Size > Size ? o : this;
-                    Dot father = o.Size > Size ? this : o;
+                    if (My_Species.Creatures.Count >= NatureController.Instance.SpeciesCountUpperLimit) return;
+                    Creature mother = o.Size > Size ? o : this;
+                    Creature father = o.Size > Size ? this : o;
                     float motherLeftSize = 1f;
                     for (int i = 0; i < ChildrenSizeComposition.Length; i++)
                     {
@@ -174,7 +199,7 @@ namespace instinctai.usr.behaviours
 
         public NodeVal FindPredators()
         {
-            Dot predator = NatureController.Instance.FindNearestPredator(this);
+            Creature predator = NatureController.Instance.FindNearestPredator(this);
             if (predator)
             {
                 escapingFrom = predator.transform.position;
@@ -201,7 +226,7 @@ namespace instinctai.usr.behaviours
 
         public NodeVal FindPreys()
         {
-            Dot prey = NatureController.Instance.FindNearestPrey(this);
+            Creature prey = NatureController.Instance.FindNearestPrey(this);
             if (prey)
             {
                 preyLocation = prey.transform.position;
@@ -233,7 +258,7 @@ namespace instinctai.usr.behaviours
                 return NodeVal.Fail;
             }
 
-            Dot mateDot = My_Species.FindNearestMate(this);
+            Creature mateDot = My_Species.FindNearestMate(this);
             if (mateDot != null)
             {
                 mateDestination = mateDot.transform.position;

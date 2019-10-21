@@ -10,7 +10,7 @@
  *
  * If you do need to modify this file, note that it is a partial class.
  * See https://msdn.microsoft.com/en-us/library/wa80x488.aspx
- * You can edit the file Dot.cs
+ * You can edit the file Creature.cs
  */
 
 namespace instinctai.usr.behaviours
@@ -23,19 +23,26 @@ namespace instinctai.usr.behaviours
     using com.kupio.instinctai.live;
 #endif
 
-    public partial class Dot : MonoBehaviour
+
+    public partial class Creature : MonoBehaviour
 #if UNITY_EDITOR
         , LiveTree
 #endif
     {
         private IEnumerator _state = null;
+
         private int _jmp;
         private bool valid = true;
+
+
+
+
 
 #if UNITY_EDITOR
     private LiveUpdate _live;
     private int _liveHandle;
 #endif
+
 
         public void UpdateAI()
         {
@@ -46,11 +53,13 @@ namespace instinctai.usr.behaviours
                 }
             }
         }
+
         private IEnumerator StateGen()
         {
             int node = 0;
             NodeVal ret = NodeVal.Error;
             _jmp = -1;
+
             int n0c = -1;
             int n2c = -1;
             int n3c = -1;
@@ -63,9 +72,11 @@ namespace instinctai.usr.behaviours
             NodeVal n5_1r = NodeVal.Invalid;
             NodeVal n6_1r = NodeVal.Invalid;
 
+
             if (!valid) {
                 throw new BehaviourTreeException("Behaviour tree will not run. The GameObject has missing required components.");
             }
+
             do {
                 switch (node) {
                     case 0:
@@ -325,9 +336,12 @@ namespace instinctai.usr.behaviours
 
                         break;
                 }
+
             } while (node >= 0);
+
             yield return null;
         }
+
         public void ResetTree()
         {
             if (_jmp != 0)
@@ -335,6 +349,7 @@ namespace instinctai.usr.behaviours
                 _jmp = 0;
             }
         }
+
 #if UNITY_EDITOR
         public bool SetLive(LiveUpdate live, string treeKey, string codeKey, int liveHandle, out bool codeMatch) {
             if (treeKey == "P+D8lcFaO0uyxGpa3x2lyA") {
@@ -350,5 +365,7 @@ namespace instinctai.usr.behaviours
         }
 #endif
 
+        
     }
+
 }
