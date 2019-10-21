@@ -62,7 +62,7 @@ public class GeoElement : PoolObject
         GeoInfo gi = new GeoInfo();
         gi.Color = SpriteRenderer.color;
         gi.GeoType = geoType;
-        gi.Position = transform.position / GameManager.Instance.ScaleFactor;
+        gi.Position = transform.localPosition;
         gi.Rotation = transform.rotation;
         gi.Size = SpriteRenderer.size / GameManager.Instance.ScaleFactor / GameManager.Instance.ScaleFactor;
         gi.SortingOrder = SpriteRenderer.sortingOrder;

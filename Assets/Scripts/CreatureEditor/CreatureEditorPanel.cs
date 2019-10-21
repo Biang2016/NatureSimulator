@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using instinctai.usr.behaviours;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreatureEditorPanel : BaseUIForm
 {
@@ -35,6 +37,41 @@ public class CreatureEditorPanel : BaseUIForm
         }
 
         EditArea.MyState = EditArea.States.Draw;
+    }
+
+    [SerializeField] private Slider LifeBar;
+    [SerializeField] private Text LifeText;
+    [SerializeField] private Slider SpeedBar;
+    [SerializeField] private Text SpeedText;
+    [SerializeField] private Slider DamageBar;
+    [SerializeField] private Text DamageText;
+    [SerializeField] private Slider VisionBar;
+    [SerializeField] private Text VisionText;
+    [SerializeField] private Dropdown DietDrpDropdown;
+    [SerializeField] private InputField FertilityRateInputField;
+    [SerializeField] private InputField OffspringSize;
+    [SerializeField] private InputField MatureSize;
+    [SerializeField] private InputField MinSize;
+    [SerializeField] private InputField MaxSize;
+    [SerializeField] private Text GeneralSize;
+    [SerializeField] private Text Mass;
+
+    public void RefreshLeftPanelInfo(Creature.CreatureInfo ci)
+    {
+        LifeBar.value = ci.Life;
+        LifeText.text = Mathf.RoundToInt(ci.Life).ToString();
+
+        SpeedBar.value = ci.Speed;
+        SpeedText.text = Mathf.RoundToInt(ci.Speed).ToString();
+
+        DamageBar.value = ci.Damage;
+        DamageText.text = Mathf.RoundToInt(ci.Damage).ToString();
+
+        VisionBar.value = ci.Vision;
+        VisionText.text = Mathf.RoundToInt(ci.Vision).ToString();
+
+        GeneralSize.text = Mathf.Round(ci.GeneralSize / 10) + "cm";
+        Mass.text = Mathf.Round(ci.Mass) + "kg";
     }
 
     void Update()

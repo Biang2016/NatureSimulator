@@ -9,7 +9,7 @@ public class Species : PoolObject
 
     public GeoGroupInfo MyGeoGroupInfo;
 
-    public void SpawnDots(int number)
+    public void SpawnCreatures(int number)
     {
         StartCoroutine(Co_SpawnDots(number));
     }
@@ -18,12 +18,12 @@ public class Species : PoolObject
     {
         for (int i = 0; i < number; i++)
         {
-            SpawnDot(0, NatureController.GetRandomPos(), true);
+            SpawnCreatures(0, NatureController.GetRandomPos(), true);
             yield return new WaitForEndOfFrame();
         }
     }
 
-    public void SpawnDot(float size, Vector2 pos, bool randomSize = false)
+    public void SpawnCreatures(float size, Vector2 pos, bool randomSize = false)
     {
         GameObject prefab = (GameObject) Resources.Load("Creature");
         GameObject CreatureGO = Instantiate(prefab);

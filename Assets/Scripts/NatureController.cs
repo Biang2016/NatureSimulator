@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using instinctai.usr.behaviours;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NatureController : MonoSingleton<NatureController>
 {
@@ -30,7 +31,6 @@ public class NatureController : MonoSingleton<NatureController>
             Species species = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Species].AllocateGameObject<Species>(transform);
             species.name = kv.Key + "_Species";
             species.MyGeoGroupInfo = kv.Value;
-            species.SpawnDots(1);
             AllSpecies.Add(kv.Key, species);
         }
     }
@@ -67,7 +67,7 @@ public class NatureController : MonoSingleton<NatureController>
 
     public static Vector2 GetRandomPos(float radius = 0f)
     {
-        float distance = UnityEngine.Random.Range(0, 5.2f - radius);
+        float distance = UnityEngine.Random.Range(0, 5.0f - radius / 100f);
         float angle = UnityEngine.Random.Range(0, 360f);
         float x = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
         float y = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
@@ -170,6 +170,15 @@ public class NatureController : MonoSingleton<NatureController>
         else
         {
             return nearCreature;
+        }
+    }
+
+    public void RestartSimulate()
+    {
+        RecreateAllSpecies();
+        foreach (KeyValuePair<string, Species> kv in AllSpecies)
+        {
+            kv.Value.SpawnCreatures(10);
         }
     }
 }

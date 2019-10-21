@@ -16,13 +16,23 @@ namespace instinctai.usr.behaviours
 
     public partial class Creature : MonoBehaviour
     {
-        //public float Life;
-        //public float Speed;
-        //public float Damage;
-        //public float FertilityRate;
-        //public float ChildrenSize;
-        //public float MatureSize;
-        //public float MinSize;
+        [Serializable]
+        public class CreatureInfo
+        {
+            public float Life;
+            public float Speed;
+            public float Damage;
+            public float Vision;
+            public float GeneralSize;
+            public float FertilityRate;
+            public float ChildrenSize;
+            public float MatureSize;
+            public float MinSize;
+            public List<string> Diet;
+            public float Mass;
+        }
+
+        public CreatureInfo MyCreatureInfo;
 
         private int i = 0;
 
@@ -89,7 +99,7 @@ namespace instinctai.usr.behaviours
                 GeoElement ge = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.GeoElement].AllocateGameObject<GeoElement>(GeoGroup.transform);
                 GeoGroup.AllGeos.Add(ge);
                 GeoGroup.GeoGroupInfo = species.MyGeoGroupInfo;
-                ge.transform.localPosition = gi.Position;
+                ge.transform.localPosition = gi.Position / GameManager.Instance.ScaleFactor / GameManager.Instance.ScaleFactor;
                 ge.transform.rotation = gi.Rotation;
                 ge.Initialize(gi.GeoType, gi.Size, gi.Color, gi.SortingOrder);
             }
@@ -145,7 +155,7 @@ namespace instinctai.usr.behaviours
             Size = Mathf.Min(MaxSize, GrowUpRate * Size * Time.deltaTime + Size);
             try
             {
-                if (Vector2.Distance(transform.position, Vector2.zero) > 540f)
+                if (Vector2.Distance(transform.position, Vector2.zero) > 5.40f)
                 {
                     NatureController.Instance.DestroyCreature(this);
                 }
@@ -183,7 +193,7 @@ namespace instinctai.usr.behaviours
                     for (int i = 0; i < ChildrenSizeComposition.Length; i++)
                     {
                         motherLeftSize -= ChildrenSizeComposition[i] * ChildrenSizeComposition[i];
-                        My_Species.SpawnDot(ChildrenSizeComposition[i] * mother.Size, transform.position, false);
+                        My_Species.SpawnCreatures(ChildrenSizeComposition[i] * mother.Size, transform.position, false);
                     }
 
                     mother.Size = Mathf.Sqrt(motherLeftSize) * mother.Size;
@@ -284,6 +294,7 @@ namespace instinctai.usr.behaviours
         public Vector3 wanderDestination = new Vector3(0, 0);
 
         public bool isWandering = false;
+        private float wanderTime = 0f;
 
         public NodeVal Wander()
         {
@@ -291,10 +302,17 @@ namespace instinctai.usr.behaviours
             {
                 isWandering = true;
                 wanderDestination = NatureController.GetRandomPos(Size);
+                wanderTime = 0f;
             }
             else
             {
-                if (Vector3.Distance(transform.position, wanderDestination) < 5f)
+                wanderTime += Time.deltaTime;
+                if (wanderTime > 2f)
+                {
+                    isWandering = false;
+                }
+
+                if (Vector3.Distance(transform.position, wanderDestination) < 0.01f)
                 {
                     isWandering = false;
                 }

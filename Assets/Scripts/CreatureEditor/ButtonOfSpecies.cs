@@ -10,6 +10,7 @@ public class ButtonOfSpecies : PoolObject
 
     public void Initialize(GeoGroupInfo ggi)
     {
+        Button.image.color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         GGI = ggi;
         Text.text = ggi.Name;
         Button.onClick.RemoveAllListeners();
@@ -20,6 +21,7 @@ public class ButtonOfSpecies : PoolObject
             CreatureEditorPanel cep = UIManager.Instance.ShowUIForms<CreatureEditorPanel>();
             cep.Initialize(GGI);
             UIManager.Instance.CloseUIForm<NaturalPanel>();
+            UIManager.Instance.GetBaseUIForm<NaturalPanel>().isSimulationStart = false;
         });
     }
 }

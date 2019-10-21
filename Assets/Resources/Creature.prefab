@@ -44,17 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5402dcecfe448d08925ed709d97d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyCreatureInfo:
+    Life: 0
+    Speed: 0
+    Damage: 0
+    Vision: 0
+    GeneralSize: 0
+    FertilityRate: 0
+    ChildrenSize: 0
+    MatureSize: 0
+    MinSize: 0
+    Diet: []
+    Mass: 0
   size: 50
   GrowUpRate: 0
   SpeciesSpeedFactor: 0.01
   MateMatureSizeThreshold: 40
-  MateSizeDiffThreshold: 0
+  MateSizeDiffThreshold: 20
   MinSize: 30
   MaxSize: 80
   ChildrenSizeComposition:
-  - 10
-  - 10
-  - 10
+  - 0.1
   GeoGroup: {fileID: 0}
   Rigidbody2D: {fileID: 2705177116816151078}
   M_SpeciesName: 

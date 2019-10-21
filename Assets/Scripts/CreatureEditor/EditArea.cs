@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using instinctai.usr.behaviours;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -45,12 +46,12 @@ public class EditArea : MonoBehaviour
         StartDragMove = false;
         IsMouseIn = false;
         MouseLeftDown = false;
-        SortingOrder = 0;
+        SortingOrder = 2;
 
         foreach (GeoInfo gi in ggi.GeoInfos)
         {
             GeoElement ge = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.GeoElement].AllocateGameObject<GeoElement>(transform);
-            ge.transform.localPosition = gi.Position * GameManager.Instance.ScaleFactor * GameManager.Instance.ScaleFactor;
+            ge.transform.localPosition = gi.Position;
             ge.transform.rotation = gi.Rotation;
             ge.Initialize(gi.GeoType, gi.Size * GameManager.Instance.ScaleFactor * GameManager.Instance.ScaleFactor, gi.Color, gi.SortingOrder);
             SortingOrder = Mathf.Max(SortingOrder, gi.SortingOrder + 1);
@@ -155,8 +156,20 @@ public class EditArea : MonoBehaviour
         Delete,
     }
 
+    private GeoGroupInfo Cur_GGI;
+
     void Update()
     {
+        Cur_GGI = new GeoGroupInfo();
+        foreach (GeoElement geo in GeoElements)
+        {
+            GeoInfo gi = geo.ExportGeoInfo();
+            Cur_GGI.GeoInfos.Add(gi);
+        }
+
+        Creature.CreatureInfo ci = Cur_GGI.GetCreatureInfo();
+        UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().RefreshLeftPanelInfo(ci);
+
         if (IsMouseIn)
         {
             if (Input.GetMouseButtonDown(0))
@@ -220,7 +233,7 @@ public class EditArea : MonoBehaviour
     }
 
     internal GeoElement CurrentEditGeoElement = null;
-    private int SortingOrder = 0;
+    private int SortingOrder = 2;
 
     private bool StartDragMove = false;
     private Vector2 lastMousePos;
