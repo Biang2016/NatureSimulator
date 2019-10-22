@@ -67,7 +67,7 @@ public class NatureController : MonoSingleton<NatureController>
 
     public static Vector2 GetRandomPos(float radius = 0f)
     {
-        float distance = UnityEngine.Random.Range(0, 5.0f - radius / 100f);
+        float distance = UnityEngine.Random.Range(0, 5.2f - radius / 1000f);
         float angle = UnityEngine.Random.Range(0, 360f);
         float x = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
         float y = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;

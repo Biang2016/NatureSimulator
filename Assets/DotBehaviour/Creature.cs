@@ -16,23 +16,7 @@ namespace instinctai.usr.behaviours
 
     public partial class Creature : MonoBehaviour
     {
-        [Serializable]
-        public class CreatureInfo
-        {
-            public float Life;
-            public float Speed;
-            public float Damage;
-            public float Vision;
-            public float GeneralSize;
-            public float FertilityRate;
-            public float ChildrenSize;
-            public float MatureSize;
-            public float MinSize;
-            public List<string> Diet;
-            public float Mass;
-        }
-
-        public CreatureInfo MyCreatureInfo;
+        public GeoGroupInfo MyGeoGroupInfo;
 
         private int i = 0;
 
@@ -49,39 +33,24 @@ namespace instinctai.usr.behaviours
             }
         }
 
-        [SerializeField] private float size;
 
-        public float Size
-        {
-            get { return size; }
-            set
-            {
-                size = value;
-                transform.localScale = Vector3.one * size / 20f;
-            }
-        }
-
-        public float GrowUpRate;
-        public float SpeciesSpeedFactor;
-        public float MateMatureSizeThreshold;
-        public float MateSizeDiffThreshold;
-        public float MinSize;
-        public float MaxSize;
-        public float[] ChildrenSizeComposition;
+        public float Size;
 
         [SerializeField] private GeoGroup GeoGroup;
         public Rigidbody2D Rigidbody2D;
 
-        public float BasicSpeed => Mathf.Min(100, 50 / Size + 0.01f * Size) * NatureController.Instance.NormalSpeed * SpeciesSpeedFactor;
+        public float BasicSpeed => MyGeoGroupInfo.Speed / 1000f * NatureController.Instance.NormalSpeed;
 
         public string M_SpeciesName;
         public Species My_Species;
 
-        public void Init(Species species, float _size, bool randomSize = false)
+        public void Init(Species species, GeoGroupInfo ci, float _size, bool randomSize = false)
         {
+            MyGeoGroupInfo = ci;
+            Rigidbody2D.mass = MyGeoGroupInfo.Mass;
             if (randomSize)
             {
-                Size = Random.Range(MinSize, MaxSize);
+                Size = Random.Range(MyGeoGroupInfo.MinSizeRatio / 100f * MyGeoGroupInfo.GeneralSize, MyGeoGroupInfo.MaxSizeRatio / 100f * MyGeoGroupInfo.GeneralSize);
             }
             else
             {
@@ -97,13 +66,18 @@ namespace instinctai.usr.behaviours
             foreach (GeoInfo gi in species.MyGeoGroupInfo.GeoInfos)
             {
                 GeoElement ge = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.GeoElement].AllocateGameObject<GeoElement>(GeoGroup.transform);
+                ge.Collider.enabled = false;
                 GeoGroup.AllGeos.Add(ge);
                 GeoGroup.GeoGroupInfo = species.MyGeoGroupInfo;
-                ge.transform.localPosition = gi.Position / GameManager.Instance.ScaleFactor / GameManager.Instance.ScaleFactor;
+                ge.transform.localPosition = (gi.Position - ci.Center) / GameManager.Instance.ScaleFactor / GameManager.Instance.ScaleFactor;
                 ge.transform.rotation = gi.Rotation;
                 ge.Initialize(gi.GeoType, gi.Size, gi.Color, gi.SortingOrder);
             }
+
+            MyCollider.radius = 0.02f * ci.GeneralSize / 1000f;
         }
+
+        [SerializeField] private CircleCollider2D MyCollider;
 
         void OnDestroy()
         {
@@ -135,11 +109,13 @@ namespace instinctai.usr.behaviours
             }
         }
 
+        public float MateMatureSizeThreshold => MyGeoGroupInfo.MatureSizeRatio / 100f * MyGeoGroupInfo.GeneralSize / 10f;
+
         public bool IsMateOf(Creature o)
         {
             if (o.M_SpeciesName != M_SpeciesName && o.Size > MateMatureSizeThreshold && Size > MateMatureSizeThreshold)
             {
-                return ((1f - o.MateSizeDiffThreshold) < (Size / o.Size)) && ((Size / o.Size) < (1f + o.MateSizeDiffThreshold));
+                return true;
             }
             else
             {
@@ -152,7 +128,7 @@ namespace instinctai.usr.behaviours
         public NodeVal GrowUp()
         {
             if (Destroyed) return NodeVal.Success;
-            Size = Mathf.Min(MaxSize, GrowUpRate * Size * Time.deltaTime + Size);
+            Size = Mathf.Min(MyGeoGroupInfo.MaxSizeRatio / 100f * MyGeoGroupInfo.GeneralSize, MyGeoGroupInfo.GrowUpRate * Size * Time.deltaTime + Size);
             try
             {
                 if (Vector2.Distance(transform.position, Vector2.zero) > 5.40f)
@@ -190,10 +166,16 @@ namespace instinctai.usr.behaviours
                     Creature mother = o.Size > Size ? o : this;
                     Creature father = o.Size > Size ? this : o;
                     float motherLeftSize = 1f;
-                    for (int i = 0; i < ChildrenSizeComposition.Length; i++)
+                    motherLeftSize -= MyGeoGroupInfo.OffspringSizeRatio / 100f * MyGeoGroupInfo.OffspringSizeRatio / 100f;
+
+                    int hi_p = MyGeoGroupInfo.FertilityRate % 100;
+                    int low = MyGeoGroupInfo.FertilityRate / 100;
+                    int rand = Random.Range(0, 100);
+                    if (hi_p > rand) low++;
+
+                    for (int i = 0; i < low; i++)
                     {
-                        motherLeftSize -= ChildrenSizeComposition[i] * ChildrenSizeComposition[i];
-                        My_Species.SpawnCreatures(ChildrenSizeComposition[i] * mother.Size, transform.position, false);
+                        My_Species.SpawnCreatures(MyGeoGroupInfo.OffspringSizeRatio / 100f * mother.Size, transform.position, false);
                     }
 
                     mother.Size = Mathf.Sqrt(motherLeftSize) * mother.Size;
@@ -312,7 +294,7 @@ namespace instinctai.usr.behaviours
                     isWandering = false;
                 }
 
-                if (Vector3.Distance(transform.position, wanderDestination) < 0.01f)
+                if (Vector3.Distance(transform.position, wanderDestination) < 0.2f)
                 {
                     isWandering = false;
                 }

@@ -160,16 +160,7 @@ public class EditArea : MonoBehaviour
 
     void Update()
     {
-        Cur_GGI = new GeoGroupInfo();
-        foreach (GeoElement geo in GeoElements)
-        {
-            GeoInfo gi = geo.ExportGeoInfo();
-            Cur_GGI.GeoInfos.Add(gi);
-        }
-
-        Creature.CreatureInfo ci = Cur_GGI.GetCreatureInfo();
-        UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().RefreshLeftPanelInfo(ci);
-
+        RefreshInfo();
         if (IsMouseIn)
         {
             if (Input.GetMouseButtonDown(0))
@@ -187,6 +178,20 @@ public class EditArea : MonoBehaviour
                 OnMouseLeftUp();
             }
         }
+    }
+
+    public void RefreshInfo()
+    {
+        Cur_GGI = new GeoGroupInfo();
+        foreach (GeoElement geo in GeoElements)
+        {
+            GeoInfo gi = geo.ExportGeoInfo();
+            Cur_GGI.GeoInfos.Add(gi);
+        }
+
+        Cur_GGI.RefreshInfo();
+        UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().RefreshLeftPanelInfo(Cur_GGI);
+        UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().GetLeftPanelManualInfo(Cur_GGI);
     }
 
     private bool MouseLeftDown = false;
@@ -338,6 +343,8 @@ public class EditArea : MonoBehaviour
                 {
                     ge.PoolRecycle();
                     CurrentEditGeoElement = null;
+                    GeoElements.Remove(ge);
+                    RefreshInfo();
                 }
                 else
                 {
@@ -355,14 +362,30 @@ public class EditArea : MonoBehaviour
 
     private GeoElement ClickSelectGeoElement()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit)
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        GeoElement frontGE = null;
+        if (hits != null & hits.Length != 0)
         {
-            GeoElement ge = hit.collider.gameObject.GetComponent<GeoElement>();
-            if (ge != null)
+            foreach (RaycastHit2D hit in hits)
             {
-                return ge;
+                GeoElement ge = hit.collider.gameObject.GetComponent<GeoElement>();
+                if (ge != null)
+                {
+                    if (frontGE == null)
+                    {
+                        frontGE = ge;
+                    }
+                    else
+                    {
+                        if (frontGE.MySortingOrder < ge.MySortingOrder)
+                        {
+                            frontGE = ge;
+                        }
+                    }
+                }
             }
+
+            return frontGE;
         }
 
         return null;
@@ -383,6 +406,7 @@ public class EditArea : MonoBehaviour
 
         GeoElements.Clear();
         CurrentEditGeoElement = null;
+        RefreshInfo();
     }
 
     public void OnSave()
@@ -392,22 +416,15 @@ public class EditArea : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(cp.InputText1))
             {
-                GeoGroupInfo ggi = new GeoGroupInfo();
-                foreach (GeoElement geo in GeoElements)
+                Cur_GGI.Name = cp.InputText1;
+                Cur_GGI.ResetCenterAndSortingOrder();
+                if (NatureController.Instance.AllGeoGroupInfo.ContainsKey(Cur_GGI.Name))
                 {
-                    GeoInfo gi = geo.ExportGeoInfo();
-                    ggi.GeoInfos.Add(gi);
-                }
-
-                ggi.Name = cp.InputText1;
-                ggi.ResetCenterAndSortingOrder();
-                if (NatureController.Instance.AllGeoGroupInfo.ContainsKey(ggi.Name))
-                {
-                    NatureController.Instance.AllGeoGroupInfo[ggi.Name] = ggi;
+                    NatureController.Instance.AllGeoGroupInfo[Cur_GGI.Name] = Cur_GGI;
                 }
                 else
                 {
-                    NatureController.Instance.AllGeoGroupInfo.Add(ggi.Name, ggi);
+                    NatureController.Instance.AllGeoGroupInfo.Add(Cur_GGI.Name, Cur_GGI);
                 }
 
                 cp.CloseUIForm();

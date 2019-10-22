@@ -24,4 +24,15 @@ public class ButtonOfSpecies : PoolObject
             UIManager.Instance.GetBaseUIForm<NaturalPanel>().isSimulationStart = false;
         });
     }
+
+    public void OnRightClick()
+    {
+        NaturalPanel np = UIManager.Instance.GetBaseUIForm<NaturalPanel>();
+        np.ButtonOfSpeciesList.Remove(this);
+        NatureController.Instance.ClearAll();
+        NatureController.Instance.AllGeoGroupInfo.Remove(Text.text);
+        NatureController.Instance.AllSpecies.Remove(Text.text);
+        UIManager.Instance.GetBaseUIForm<NaturalPanel>().RestartSimulateButtonClick();
+        PoolRecycle();
+    }
 }

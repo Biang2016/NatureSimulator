@@ -7,26 +7,24 @@ public class GeoGroupInfo
     public List<GeoInfo> GeoInfos = new List<GeoInfo>();
     public string Name;
 
+    public float Life;
+    public float Speed;
+    public float Damage;
+    public float Vision;
+    public float GeneralSize;
+    public int FertilityRate;
+    public int OffspringSizeRatio;
+    public int MatureSizeRatio;
+    public int MinSizeRatio;
+    public int MaxSizeRatio;
+    public float GrowUpRate => 0.5f / Speed;
+    public List<string> Diet;
+    public float Mass;
+
+    public Vector2 Center;
+
     public void ResetCenterAndSortingOrder()
     {
-        //float center_X = 0;
-        //float center_Y = 0;
-        //float G = 0;
-        //foreach (GeoInfo geoInfo in GeoInfos)
-        //{
-        //    center_X += geoInfo.Position.x * geoInfo.Size.x * geoInfo.Size.x;
-        //    center_Y += geoInfo.Position.y * geoInfo.Size.x * geoInfo.Size.x;
-        //    G += geoInfo.Size.x * geoInfo.Size.x;
-        //}
-
-        //center_X /= G;
-        //center_Y /= G;
-
-        //foreach (GeoInfo gi in GeoInfos)
-        //{
-        //    gi.Position -= new Vector2(center_X, center_Y);
-        //}
-
         int minSortingOrder = 999000;
 
         foreach (GeoInfo gi in GeoInfos)
@@ -41,66 +39,63 @@ public class GeoGroupInfo
         }
     }
 
-    public Creature.CreatureInfo GetCreatureInfo()
+    public void RefreshInfo()
     {
-        Creature.CreatureInfo ci = new Creature.CreatureInfo();
-        float XMin = 0;
-        float XMax = 0;
-        float YMin = 0;
-        float YMax = 0;
+        float XMin = 9999;
+        float XMax = -9999;
+        float YMin = 9999;
+        float YMax = -9999;
         foreach (GeoInfo gi in GeoInfos)
         {
-            XMin = Mathf.Min(XMin, gi.Position.x);
-            XMax = Mathf.Max(XMax, gi.Position.x);
-            YMin = Mathf.Min(YMin, gi.Position.y);
-            YMax = Mathf.Max(YMax, gi.Position.y);
+            XMin = Mathf.Min(XMin, gi.Position.x - gi.Size.x * 10000f);
+            XMax = Mathf.Max(XMax, gi.Position.x + gi.Size.x * 10000f);
+            YMin = Mathf.Min(YMin, gi.Position.y - gi.Size.y * 10000f);
+            YMax = Mathf.Max(YMax, gi.Position.y + gi.Size.y * 10000f);
             float area = gi.Size.x * gi.Size.x * 3000;
-            ci.Mass += area;
+            Mass += area;
             switch (gi.GeoType)
             {
                 case GeoTypes.Circle:
                 {
-                    ci.Life -= 3 * area;
-                    ci.Speed -= 10 * area;
-                    ci.Damage -= 5 * area;
-                    ci.Vision += 20 * area;
+                    Life -= 3 * area;
+                    Speed -= 10 * area;
+                    Damage -= 5 * area;
+                    Vision += 20 * area;
                     break;
                 }
                 case GeoTypes.Square:
                 {
-                    ci.Life += 5 * area;
-                    ci.Speed += 10 * area;
-                    ci.Damage -= 5 * area;
-                    ci.Vision -= 10 * area;
+                    Life += 5 * area;
+                    Speed += 10 * area;
+                    Damage -= 5 * area;
+                    Vision -= 10 * area;
                     break;
                 }
                 case GeoTypes.Triangle:
                 {
-                    ci.Life -= 5 * area;
-                    ci.Speed -= 3 * area;
-                    ci.Damage += 10 * area;
-                    ci.Vision -= 2 * area;
+                    Life -= 5 * area;
+                    Speed -= 3 * area;
+                    Damage += 10 * area;
+                    Vision -= 2 * area;
                     break;
                 }
                 case GeoTypes.Hexagon:
                 {
-                    ci.Life += 20 * area;
-                    ci.Speed -= 10 * area;
-                    ci.Damage -= 2 * area;
-                    ci.Vision -= 3 * area;
+                    Life += 20 * area;
+                    Speed -= 10 * area;
+                    Damage -= 2 * area;
+                    Vision -= 3 * area;
                     break;
                 }
             }
-
         }
 
-        ci.Life = Mathf.Max(5f, ci.Life);
-        ci.Speed = Mathf.Max(5, ci.Speed);
-        ci.Damage = Mathf.Max(5, ci.Damage);
-        ci.Vision = Mathf.Max(5, ci.Vision);
+        Life = Mathf.Max(5f, Life);
+        Speed = Mathf.Max(5, Speed);
+        Damage = Mathf.Max(5, Damage);
+        Vision = Mathf.Max(5, Vision);
 
-        ci.GeneralSize = Mathf.Sqrt((XMax - XMin) * (XMax - XMin) + (YMax - YMin) * (YMax - YMin));
-
-        return ci;
+        GeneralSize = Mathf.Sqrt((XMax - XMin) * (XMax - XMin) + (YMax - YMin) * (YMax - YMin));
+        Center = new Vector3((XMax + XMin) / 2f, (YMax + YMin) / 2f);
     }
 }

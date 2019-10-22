@@ -6,10 +6,13 @@ public class GeoElement : PoolObject
 {
     [SerializeField] private SpriteRenderer SpriteRenderer;
     [SerializeField] private SpriteRenderer BorderSR;
-    [SerializeField] private BoxCollider2D Collider;
+    public BoxCollider2D Collider;
+
+    public int MySortingOrder => SpriteRenderer.sortingOrder;
 
     public override void PoolRecycle()
     {
+        Collider.enabled = true;
         OnSelected = false;
         base.PoolRecycle();
     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NaturalPanel : BaseUIForm
 {
     [SerializeField] private Transform LeftPanel;
-    private List<ButtonOfSpecies> ButtonOfSpeciesList = new List<ButtonOfSpecies>();
+    public List<ButtonOfSpecies> ButtonOfSpeciesList = new List<ButtonOfSpecies>();
 
     void Awake()
     {
@@ -35,6 +35,7 @@ public class NaturalPanel : BaseUIForm
     public void CreateNewButtonClick()
     {
         NatureController.Instance.ClearAll();
+        UIManager.Instance.GetBaseUIForm<NaturalPanel>().isSimulationStart = false;
         GameManager.Instance.BG.SetActive(true);
         UIManager.Instance.ShowUIForms<CreatureEditorPanel>().Initialize(new GeoGroupInfo());
         CloseUIForm();

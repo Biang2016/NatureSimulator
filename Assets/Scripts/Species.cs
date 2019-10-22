@@ -29,7 +29,7 @@ public class Species : PoolObject
         GameObject CreatureGO = Instantiate(prefab);
         CreatureGO.transform.SetParent(transform);
         Creature creature = CreatureGO.GetComponent<Creature>();
-        creature.Init(this, size, randomSize);
+        creature.Init(this, MyGeoGroupInfo, size, randomSize);
         creature.transform.position = pos;
         Creatures.Add(creature);
     }

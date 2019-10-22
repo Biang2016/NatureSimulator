@@ -12,6 +12,7 @@ public class CreatureEditorPanel : BaseUIForm
 
     public void Initialize(GeoGroupInfo ggi)
     {
+        LoadInfoForLeftPanel(ggi);
         EditArea.LoadGeoGroupInfo(ggi);
     }
 
@@ -56,7 +57,7 @@ public class CreatureEditorPanel : BaseUIForm
     [SerializeField] private Text GeneralSize;
     [SerializeField] private Text Mass;
 
-    public void RefreshLeftPanelInfo(Creature.CreatureInfo ci)
+    public void RefreshLeftPanelInfo(GeoGroupInfo ci)
     {
         LifeBar.value = ci.Life;
         LifeText.text = Mathf.RoundToInt(ci.Life).ToString();
@@ -72,6 +73,69 @@ public class CreatureEditorPanel : BaseUIForm
 
         GeneralSize.text = Mathf.Round(ci.GeneralSize / 10) + "cm";
         Mass.text = Mathf.Round(ci.Mass) + "kg";
+    }
+
+    public void LoadInfoForLeftPanel(GeoGroupInfo ci)
+    {
+        RefreshLeftPanelInfo(ci);
+        FertilityRateInputField.text = ci.FertilityRate.ToString();
+        OffspringSize.text = ci.OffspringSizeRatio.ToString();
+        MatureSize.text = ci.MatureSizeRatio.ToString();
+        MinSize.text = ci.MinSizeRatio.ToString();
+        MaxSize.text = ci.MaxSizeRatio.ToString();
+    }
+
+    public void GetLeftPanelManualInfo(GeoGroupInfo ci)
+    {
+        if (int.TryParse(FertilityRateInputField.text, out int fr))
+        {
+            ci.FertilityRate = fr;
+        }
+        else
+        {
+            ci.FertilityRate = 100;
+            FertilityRateInputField.text = "100";
+        }
+
+        if (int.TryParse(OffspringSize.text, out int os))
+        {
+            ci.OffspringSizeRatio = os;
+        }
+        else
+        {
+            ci.OffspringSizeRatio = 50;
+            OffspringSize.text = "50";
+        }
+
+        if (int.TryParse(MatureSize.text, out int ms))
+        {
+            ci.MatureSizeRatio = ms;
+        }
+        else
+        {
+            ci.MatureSizeRatio = 50;
+            MatureSize.text = "50";
+        }
+
+        if (int.TryParse(MinSize.text, out int mins))
+        {
+            ci.MinSizeRatio = mins;
+        }
+        else
+        {
+            ci.MinSizeRatio = 30;
+            MinSize.text = "30";
+        }
+
+        if (int.TryParse(MaxSize.text, out int maxs))
+        {
+            ci.MaxSizeRatio = maxs;
+        }
+        else
+        {
+            ci.MaxSizeRatio = 130;
+            MaxSize.text = "130";
+        }
     }
 
     void Update()
