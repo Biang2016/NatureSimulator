@@ -107,19 +107,19 @@ public class EditArea : MonoBehaviour
                         drawFunctionButton.IsSelected = false;
                     }
 
-                    Cursor.SetCursor(Cursor_Draw, Vector2.one * 256, CursorMode.Auto);
+                    Cursor.SetCursor(Cursor_Draw, Vector2.one * 16, CursorMode.Auto);
                     break;
                 }
                 case States.DuringDrawing:
                 {
                     UnSelect();
-                    Cursor.SetCursor(Cursor_DuringDrawing, Vector2.one * 256, CursorMode.Auto);
+                    Cursor.SetCursor(Cursor_DuringDrawing, Vector2.one * 16, CursorMode.Auto);
                     break;
                 }
                 case States.Delete:
                 {
                     UnSelect();
-                    Cursor.SetCursor(Cursor_Eraser, Vector2.one * 256, CursorMode.Auto);
+                    Cursor.SetCursor(Cursor_Eraser, Vector2.one * 16, CursorMode.Auto);
                     break;
                 }
             }
