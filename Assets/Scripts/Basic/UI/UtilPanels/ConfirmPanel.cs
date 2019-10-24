@@ -9,12 +9,13 @@ public class ConfirmPanel : BaseUIForm
     [SerializeField] private Text RightButtonText;
     [SerializeField] private Button LeftButton;
     [SerializeField] private Button RightButton;
-    [SerializeField] private InputField InputField1;
+    public InputField InputField1;
     [SerializeField] private InputField InputField2;
     [SerializeField] private InputField InputField3;
     [SerializeField] private Text InputFieldPlaceHolderText1;
     [SerializeField] private Text InputFieldPlaceHolderText2;
     [SerializeField] private Text InputFieldPlaceHolderText3;
+
 
     void Awake()
     {

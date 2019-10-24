@@ -672,8 +672,8 @@ MonoBehaviour:
     width: 150
     height: 100
   PropsScrollPos: {x: 0, y: 0}
-  ZoomLevel: 1
-  ViewCenter: {x: 498861.25, y: 499459.38}
+  ZoomLevel: 0
+  ViewCenter: {x: 498339.9, y: 499232.72}
   Namespace: 
   ClassName: 
   AssetFolder: 

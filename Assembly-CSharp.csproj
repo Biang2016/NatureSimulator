@@ -57,8 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DotBehaviour\Creature.cs" />
-    <Compile Include="Assets\DotBehaviour\Creature.generated.cs" />
+    <Compile Include="Assets\CreatureAI\Creature.cs" />
+    <Compile Include="Assets\CreatureAI\Creature.generated.cs" />
     <Compile Include="Assets\Scripts\Basic\ClientUtils.cs" />
     <Compile Include="Assets\Scripts\Basic\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\Basic\ObjectPool\GameObjectPool.cs" />

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using instinctai.usr.behaviours;
 using UnityEngine;
 
+[Serializable]
 public class GeoGroupInfo
 {
     public List<GeoInfo> GeoInfos = new List<GeoInfo>();
@@ -12,14 +14,20 @@ public class GeoGroupInfo
     public float Damage;
     public float Vision;
     public float GeneralSize;
-    public int FertilityRate;
-    public int OffspringSizeRatio;
-    public int MatureSizeRatio;
-    public int MinSizeRatio;
-    public int MaxSizeRatio;
-    public float GrowUpRate => 0.5f / Speed;
+    public int FertilityRate = 100;
+    public int OffspringSizePercent = 50;
+    public int MatureSizePercent = 70;
+    public int MinSizePercent = 35;
+    public int MaxSizePercent = 130;
+    public int MaxNumber = 100;
+    public float GrowUpRate => Speed.Equals(0) ? 0.001f : (0.05f / Speed);
     public List<string> Diet;
     public float Mass;
+
+    public float MaxSize => MaxSizePercent / 100f * GeneralSize;
+    public float MinSize => MinSizePercent / 100f * GeneralSize;
+    public float MateMatureSizeThreshold => MatureSizePercent / 100f * GeneralSize;
+    public float ColliderRadius => GeneralSize / ScaleOfAllCreatures / 50000f;
 
     public Vector2 Center;
 
@@ -41,6 +49,17 @@ public class GeoGroupInfo
 
     public void RefreshInfo()
     {
+        if (GeoInfos.Count == 0)
+        {
+            Life = 0;
+            Speed = 0;
+            Damage = 0;
+            Vision = 0;
+            GeneralSize = 0;
+            Center = Vector3.zero;
+            return;
+        }
+
         float XMin = 9999;
         float XMax = -9999;
         float YMin = 9999;
@@ -58,7 +77,7 @@ public class GeoGroupInfo
                 case GeoTypes.Circle:
                 {
                     Life -= 3 * area;
-                    Speed -= 10 * area;
+                    Speed -= 3 * area;
                     Damage -= 5 * area;
                     Vision += 20 * area;
                     break;
@@ -66,9 +85,9 @@ public class GeoGroupInfo
                 case GeoTypes.Square:
                 {
                     Life += 5 * area;
-                    Speed += 10 * area;
+                    Speed += 20 * area;
                     Damage -= 5 * area;
-                    Vision -= 10 * area;
+                    Vision -= 3 * area;
                     break;
                 }
                 case GeoTypes.Triangle:
@@ -82,7 +101,7 @@ public class GeoGroupInfo
                 case GeoTypes.Hexagon:
                 {
                     Life += 20 * area;
-                    Speed -= 10 * area;
+                    Speed -= 4 * area;
                     Damage -= 2 * area;
                     Vision -= 3 * area;
                     break;
@@ -95,7 +114,9 @@ public class GeoGroupInfo
         Damage = Mathf.Max(5, Damage);
         Vision = Mathf.Max(5, Vision);
 
-        GeneralSize = Mathf.Sqrt((XMax - XMin) * (XMax - XMin) + (YMax - YMin) * (YMax - YMin));
+        GeneralSize = Mathf.Sqrt((XMax - XMin) * (XMax - XMin) + (YMax - YMin) * (YMax - YMin)) * ScaleOfAllCreatures;
         Center = new Vector3((XMax + XMin) / 2f, (YMax + YMin) / 2f);
     }
+
+    public const float ScaleOfAllCreatures = 0.5f;
 }

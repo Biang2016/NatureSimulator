@@ -411,6 +411,13 @@ public class EditArea : MonoBehaviour
 
     public void OnSave()
     {
+        if (GeoElements.Count == 0)
+        {
+            ConfirmPanel cp1 = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            cp1.Initialize("Please draw something", "Confirm", "Cancel", delegate { cp1.CloseUIForm(); }, delegate { cp1.CloseUIForm(); });
+            return;
+        }
+
         ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
         cp.Initialize("Please input species name:", "Confirm", "Cancel", delegate
         {

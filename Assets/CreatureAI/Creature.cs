@@ -33,8 +33,17 @@ namespace instinctai.usr.behaviours
             }
         }
 
+        [SerializeField] private float size;
 
-        public float Size;
+        public float Size
+        {
+            get { return size; }
+            set
+            {
+                size = value;
+                transform.localScale = Vector3.one * size / MyGeoGroupInfo.GeneralSize * 10f;
+            }
+        }
 
         [SerializeField] private GeoGroup GeoGroup;
         public Rigidbody2D Rigidbody2D;
@@ -50,7 +59,7 @@ namespace instinctai.usr.behaviours
             Rigidbody2D.mass = MyGeoGroupInfo.Mass;
             if (randomSize)
             {
-                Size = Random.Range(MyGeoGroupInfo.MinSizeRatio / 100f * MyGeoGroupInfo.GeneralSize, MyGeoGroupInfo.MaxSizeRatio / 100f * MyGeoGroupInfo.GeneralSize);
+                Size = Random.Range(MyGeoGroupInfo.MinSize, MyGeoGroupInfo.MaxSize);
             }
             else
             {
@@ -74,7 +83,7 @@ namespace instinctai.usr.behaviours
                 ge.Initialize(gi.GeoType, gi.Size, gi.Color, gi.SortingOrder);
             }
 
-            MyCollider.radius = 0.02f * ci.GeneralSize / 1000f;
+            MyCollider.radius = MyGeoGroupInfo.ColliderRadius;
         }
 
         [SerializeField] private CircleCollider2D MyCollider;
@@ -109,11 +118,9 @@ namespace instinctai.usr.behaviours
             }
         }
 
-        public float MateMatureSizeThreshold => MyGeoGroupInfo.MatureSizeRatio / 100f * MyGeoGroupInfo.GeneralSize / 10f;
-
         public bool IsMateOf(Creature o)
         {
-            if (o.M_SpeciesName != M_SpeciesName && o.Size > MateMatureSizeThreshold && Size > MateMatureSizeThreshold)
+            if (o.M_SpeciesName == M_SpeciesName && o.Size > MyGeoGroupInfo.MateMatureSizeThreshold && Size > MyGeoGroupInfo.MateMatureSizeThreshold)
             {
                 return true;
             }
@@ -128,7 +135,7 @@ namespace instinctai.usr.behaviours
         public NodeVal GrowUp()
         {
             if (Destroyed) return NodeVal.Success;
-            Size = Mathf.Min(MyGeoGroupInfo.MaxSizeRatio / 100f * MyGeoGroupInfo.GeneralSize, MyGeoGroupInfo.GrowUpRate * Size * Time.deltaTime + Size);
+            Size = Mathf.Min(MyGeoGroupInfo.MaxSize, MyGeoGroupInfo.GrowUpRate * Size * Time.deltaTime + Size);
             try
             {
                 if (Vector2.Distance(transform.position, Vector2.zero) > 5.40f)
@@ -162,11 +169,9 @@ namespace instinctai.usr.behaviours
 
                 if (o.IsMateOf(this))
                 {
-                    if (My_Species.Creatures.Count >= NatureController.Instance.SpeciesCountUpperLimit) return;
+                    if (My_Species.Creatures.Count >= MyGeoGroupInfo.MaxNumber) return;
                     Creature mother = o.Size > Size ? o : this;
                     Creature father = o.Size > Size ? this : o;
-                    float motherLeftSize = 1f;
-                    motherLeftSize -= MyGeoGroupInfo.OffspringSizeRatio / 100f * MyGeoGroupInfo.OffspringSizeRatio / 100f;
 
                     int hi_p = MyGeoGroupInfo.FertilityRate % 100;
                     int low = MyGeoGroupInfo.FertilityRate / 100;
@@ -175,11 +180,13 @@ namespace instinctai.usr.behaviours
 
                     for (int i = 0; i < low; i++)
                     {
-                        My_Species.SpawnCreatures(MyGeoGroupInfo.OffspringSizeRatio / 100f * mother.Size, transform.position, false);
+                        My_Species.SpawnCreatures(MyGeoGroupInfo.OffspringSizePercent / 100f * mother.Size, transform.position, false);
                     }
 
+                    float motherLeftSize = 1f - (MyGeoGroupInfo.OffspringSizePercent / 100f * MyGeoGroupInfo.OffspringSizePercent / 100f) * low;
                     mother.Size = Mathf.Sqrt(motherLeftSize) * mother.Size;
-//                    father.Size /= 1.2f;
+                    father.Size = Mathf.Sqrt(motherLeftSize) * father.Size;
+
                     return;
                 }
             }
@@ -245,7 +252,12 @@ namespace instinctai.usr.behaviours
 
         public NodeVal FindMate()
         {
-            if (Size < MateMatureSizeThreshold)
+            if (My_Species.Creatures.Count > MyGeoGroupInfo.MaxNumber)
+            {
+                return NodeVal.Fail;
+            }
+
+            if (Size < MyGeoGroupInfo.MateMatureSizeThreshold)
             {
                 return NodeVal.Fail;
             }

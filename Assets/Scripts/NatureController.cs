@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class NatureController : MonoSingleton<NatureController>
 {
     public float EatSizeThreshold = 0.5f;
-    public float EscapingDistanceThreshold = 400f;
-    public float ChasingPreyDistanceThreshold = 450f;
+    public float EscapingDistanceFactor = 0.01f;
+    public float ChasingPreyDistanceFactor = 0.015f;
     public float NormalSpeed = 100f;
     public float EscapingSpeedFactor = 1.2f;
     public float ChasingSpeedFactor = 1.1f;
@@ -67,14 +67,12 @@ public class NatureController : MonoSingleton<NatureController>
 
     public static Vector2 GetRandomPos(float radius = 0f)
     {
-        float distance = UnityEngine.Random.Range(0, 5.2f - radius / 1000f);
+        float distance = UnityEngine.Random.Range(0, 5f - radius / 1000f);
         float angle = UnityEngine.Random.Range(0, 360f);
         float x = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
         float y = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
         return new Vector2(x, y);
     }
-
-    public Color[] ColorSet;
 
     public Dictionary<string, Species> AllSpecies = new Dictionary<string, Species>();
     public Dictionary<string, GeoGroupInfo> AllGeoGroupInfo = new Dictionary<string, GeoGroupInfo>();
@@ -107,30 +105,30 @@ public class NatureController : MonoSingleton<NatureController>
         }
     }
 
-    public Creature FindNearestPredator(Creature callingDot)
+    public Creature FindNearestPredator(Creature callingCreature)
     {
         Creature nearCreature = null;
         float distance = 9999f;
         foreach (KeyValuePair<string, Species> kv in AllSpecies)
         {
-            if (kv.Key.Equals(callingDot.M_SpeciesName))
+            if (!kv.Key.Equals(callingCreature.M_SpeciesName))
             {
                 foreach (Creature creature in kv.Value.Creatures)
                 {
-                    if (callingDot.IsPredatorOf(callingDot))
+                    if (creature.IsPredatorOf(callingCreature))
                     {
-                        float tempDist = Vector2.Distance(callingDot.transform.position, callingDot.transform.position);
+                        float tempDist = Vector2.Distance(creature.transform.position, callingCreature.transform.position);
                         if (tempDist < distance)
                         {
                             distance = tempDist;
-                            nearCreature = callingDot;
+                            nearCreature = creature;
                         }
                     }
                 }
             }
         }
 
-        if (distance > EscapingDistanceThreshold)
+        if (distance > callingCreature.MyGeoGroupInfo.Vision * EscapingDistanceFactor)
         {
             return null;
         }
@@ -146,7 +144,7 @@ public class NatureController : MonoSingleton<NatureController>
         float distance = 9999f;
         foreach (KeyValuePair<string, Species> kv in AllSpecies)
         {
-            if (kv.Key != callingCreature.M_SpeciesName)
+            if (!kv.Key.Equals(callingCreature.M_SpeciesName))
             {
                 foreach (Creature creature in kv.Value.Creatures)
                 {
@@ -163,7 +161,7 @@ public class NatureController : MonoSingleton<NatureController>
             }
         }
 
-        if (distance > ChasingPreyDistanceThreshold)
+        if (distance > callingCreature.MyGeoGroupInfo.Vision * ChasingPreyDistanceFactor)
         {
             return null;
         }

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5203605209660488047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,7 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5402dcecfe448d08925ed709d97d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 50
+  MyGeoGroupInfo:
+    Name: 
+    Life: 0
+    Speed: 0
+    Damage: 0
+    Vision: 0
+    GeneralSize: 0
+    FertilityRate: 0
+    OffspringSizePercent: 0
+    MatureSizePercent: 0
+    MinSizePercent: 0
+    MaxSizePercent: 0
+    Diet: []
+    Mass: 0
+    Center: {x: 0, y: 0}
+  Size: 0
   GeoGroup: {fileID: 0}
   Rigidbody2D: {fileID: 2705177116816151078}
   M_SpeciesName: 

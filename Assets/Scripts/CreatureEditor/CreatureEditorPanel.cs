@@ -10,10 +10,18 @@ public class CreatureEditorPanel : BaseUIForm
     public EditArea EditArea;
     [SerializeField] private Dictionary<GeoTypes, GeoButton> GeoButtons = new Dictionary<GeoTypes, GeoButton>();
 
+    void Awake()
+    {
+        GeneralSize.text = "0cm";
+        Mass.text = "0kg";
+    }
+
     public void Initialize(GeoGroupInfo ggi)
     {
         LoadInfoForLeftPanel(ggi);
         EditArea.LoadGeoGroupInfo(ggi);
+        UIManager.Instance.ShowUIForms<ConfirmPanel>().InputField1.text = ggi.Name;
+        UIManager.Instance.CloseUIForm<ConfirmPanel>();
     }
 
     void Start()
@@ -44,6 +52,8 @@ public class CreatureEditorPanel : BaseUIForm
     [SerializeField] private Text LifeText;
     [SerializeField] private Slider SpeedBar;
     [SerializeField] private Text SpeedText;
+    [SerializeField] private Slider GrowthRateBar;
+    [SerializeField] private Text GrowthRateText;
     [SerializeField] private Slider DamageBar;
     [SerializeField] private Text DamageText;
     [SerializeField] private Slider VisionBar;
@@ -54,6 +64,7 @@ public class CreatureEditorPanel : BaseUIForm
     [SerializeField] private InputField MatureSize;
     [SerializeField] private InputField MinSize;
     [SerializeField] private InputField MaxSize;
+    [SerializeField] private InputField MaxNumber;
     [SerializeField] private Text GeneralSize;
     [SerializeField] private Text Mass;
 
@@ -64,6 +75,9 @@ public class CreatureEditorPanel : BaseUIForm
 
         SpeedBar.value = ci.Speed;
         SpeedText.text = Mathf.RoundToInt(ci.Speed).ToString();
+
+        GrowthRateBar.value = ci.GrowUpRate * 1000f;
+        GrowthRateText.text = Mathf.RoundToInt(ci.GrowUpRate * 1000f).ToString() + "‰";
 
         DamageBar.value = ci.Damage;
         DamageText.text = Mathf.RoundToInt(ci.Damage).ToString();
@@ -79,10 +93,11 @@ public class CreatureEditorPanel : BaseUIForm
     {
         RefreshLeftPanelInfo(ci);
         FertilityRateInputField.text = ci.FertilityRate.ToString();
-        OffspringSize.text = ci.OffspringSizeRatio.ToString();
-        MatureSize.text = ci.MatureSizeRatio.ToString();
-        MinSize.text = ci.MinSizeRatio.ToString();
-        MaxSize.text = ci.MaxSizeRatio.ToString();
+        OffspringSize.text = ci.OffspringSizePercent.ToString();
+        MatureSize.text = ci.MatureSizePercent.ToString();
+        MinSize.text = ci.MinSizePercent.ToString();
+        MaxSize.text = ci.MaxSizePercent.ToString();
+        MaxNumber.text = ci.MaxNumber.ToString();
     }
 
     public void GetLeftPanelManualInfo(GeoGroupInfo ci)
@@ -99,42 +114,52 @@ public class CreatureEditorPanel : BaseUIForm
 
         if (int.TryParse(OffspringSize.text, out int os))
         {
-            ci.OffspringSizeRatio = os;
+            ci.OffspringSizePercent = os;
         }
         else
         {
-            ci.OffspringSizeRatio = 50;
-            OffspringSize.text = "50";
+            ci.OffspringSizePercent = 30;
+            OffspringSize.text = "30";
         }
 
         if (int.TryParse(MatureSize.text, out int ms))
         {
-            ci.MatureSizeRatio = ms;
+            ci.MatureSizePercent = ms;
         }
         else
         {
-            ci.MatureSizeRatio = 50;
-            MatureSize.text = "50";
+            ci.MatureSizePercent = 70;
+            MatureSize.text = "70";
         }
 
         if (int.TryParse(MinSize.text, out int mins))
         {
-            ci.MinSizeRatio = mins;
+            ci.MinSizePercent = mins;
         }
         else
         {
-            ci.MinSizeRatio = 30;
-            MinSize.text = "30";
+            ci.MinSizePercent = 20;
+            MinSize.text = "20";
         }
 
         if (int.TryParse(MaxSize.text, out int maxs))
         {
-            ci.MaxSizeRatio = maxs;
+            ci.MaxSizePercent = maxs;
         }
         else
         {
-            ci.MaxSizeRatio = 130;
+            ci.MaxSizePercent = 130;
             MaxSize.text = "130";
+        }
+
+        if (int.TryParse(MaxNumber.text, out int mn))
+        {
+            ci.MaxNumber = mn;
+        }
+        else
+        {
+            ci.MaxNumber = 100;
+            MaxNumber.text = "100";
         }
     }
 
