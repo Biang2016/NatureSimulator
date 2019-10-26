@@ -41,6 +41,16 @@ namespace instinctai.usr.behaviours
             set
             {
                 size = value;
+                if (MyGeoGroupInfo.GeneralSize.Equals(0))
+                {
+                    int a = 0;
+                }
+
+                if (float.IsNaN(size))
+                {
+                    int a = 0;
+                }
+
                 transform.localScale = Vector3.one * size / MyGeoGroupInfo.GeneralSize * 10f;
             }
         }
@@ -96,9 +106,10 @@ namespace instinctai.usr.behaviours
 
         public bool IsPreyOf(Creature o)
         {
-            if (o.M_SpeciesName != M_SpeciesName)
+            if (MyGeoGroupInfo.Predators.Contains(o.M_SpeciesName))
             {
-                return Size < NatureController.Instance.EatSizeThreshold * o.Size;
+                return true;
+                //return Size < NatureController.Instance.EatSizeThreshold * o.Size;
             }
             else
             {
@@ -108,9 +119,10 @@ namespace instinctai.usr.behaviours
 
         public bool IsPredatorOf(Creature o)
         {
-            if (o.M_SpeciesName != M_SpeciesName)
+            if (MyGeoGroupInfo.Diets.Contains(o.M_SpeciesName))
             {
-                return Size * NatureController.Instance.EatSizeThreshold > o.Size;
+                return true;
+                //return Size * NatureController.Instance.EatSizeThreshold > o.Size;
             }
             else
             {
@@ -138,7 +150,7 @@ namespace instinctai.usr.behaviours
             Size = Mathf.Min(MyGeoGroupInfo.MaxSize, MyGeoGroupInfo.GrowUpRate * Size * Time.deltaTime + Size);
             try
             {
-                if (Vector2.Distance(transform.position, Vector2.zero) > 5.40f)
+                if (Vector2.Distance(transform.position, Vector2.zero) > 5.40f * 2)
                 {
                     NatureController.Instance.DestroyCreature(this);
                 }
@@ -184,6 +196,7 @@ namespace instinctai.usr.behaviours
                     }
 
                     float motherLeftSize = 1f - (MyGeoGroupInfo.OffspringSizePercent / 100f * MyGeoGroupInfo.OffspringSizePercent / 100f) * low;
+                    motherLeftSize = Mathf.Max(0.1f, motherLeftSize);
                     mother.Size = Mathf.Sqrt(motherLeftSize) * mother.Size;
                     father.Size = Mathf.Sqrt(motherLeftSize) * father.Size;
 
@@ -249,9 +262,22 @@ namespace instinctai.usr.behaviours
         #region Mate
 
         public Vector3 mateDestination = new Vector3(0, 0);
+        private float MateTick = 0f;
+        private bool ReadyToMate = false;
 
         public NodeVal FindMate()
         {
+            if (MateTick < NatureController.Instance.MateTimeInterval)
+            {
+                MateTick += Time.deltaTime;
+            }
+            else
+            {
+                ReadyToMate = true;
+            }
+
+            if (!ReadyToMate) return NodeVal.Fail;
+
             if (My_Species.Creatures.Count > MyGeoGroupInfo.MaxNumber)
             {
                 return NodeVal.Fail;
@@ -266,6 +292,8 @@ namespace instinctai.usr.behaviours
             if (mateDot != null)
             {
                 mateDestination = mateDot.transform.position;
+                MateTick = 0;
+                ReadyToMate = false;
                 return NodeVal.Success;
             }
             else

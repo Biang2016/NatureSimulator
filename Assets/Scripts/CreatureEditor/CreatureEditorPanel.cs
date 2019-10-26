@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using instinctai.usr.behaviours;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,8 +15,9 @@ public class CreatureEditorPanel : BaseUIForm
         Mass.text = "0kg";
     }
 
-    public void Initialize(GeoGroupInfo ggi)
+    public void Initialize(GeoGroupInfo ggi, bool readOnlyName = false)
     {
+        NameInputField.readOnly = readOnlyName;
         LoadInfoForLeftPanel(ggi);
         EditArea.LoadGeoGroupInfo(ggi);
         UIManager.Instance.ShowUIForms<ConfirmPanel>().InputField1.text = ggi.Name;
@@ -48,25 +48,29 @@ public class CreatureEditorPanel : BaseUIForm
         EditArea.MyState = EditArea.States.Draw;
     }
 
+    [SerializeField] private InputField NameInputField;
     [SerializeField] private Slider LifeBar;
     [SerializeField] private Text LifeText;
     [SerializeField] private Slider SpeedBar;
     [SerializeField] private Text SpeedText;
     [SerializeField] private Slider GrowthRateBar;
-    [SerializeField] private Text GrowthRateText;
     [SerializeField] private Slider DamageBar;
     [SerializeField] private Text DamageText;
     [SerializeField] private Slider VisionBar;
     [SerializeField] private Text VisionText;
-    [SerializeField] private Dropdown DietDrpDropdown;
+    [SerializeField] private Button DietButton;
     [SerializeField] private InputField FertilityRateInputField;
     [SerializeField] private InputField OffspringSize;
     [SerializeField] private InputField MatureSize;
     [SerializeField] private InputField MinSize;
     [SerializeField] private InputField MaxSize;
+    [SerializeField] private InputField GrowthRate;
+    [SerializeField] private InputField StartNumber;
     [SerializeField] private InputField MaxNumber;
     [SerializeField] private Text GeneralSize;
     [SerializeField] private Text Mass;
+
+    [SerializeField] private DietPanel DietPanel;
 
     public void RefreshLeftPanelInfo(GeoGroupInfo ci)
     {
@@ -76,9 +80,6 @@ public class CreatureEditorPanel : BaseUIForm
         SpeedBar.value = ci.Speed;
         SpeedText.text = Mathf.RoundToInt(ci.Speed).ToString();
 
-        GrowthRateBar.value = ci.GrowUpRate * 1000f;
-        GrowthRateText.text = Mathf.RoundToInt(ci.GrowUpRate * 1000f).ToString() + "‰";
-
         DamageBar.value = ci.Damage;
         DamageText.text = Mathf.RoundToInt(ci.Damage).ToString();
 
@@ -87,16 +88,36 @@ public class CreatureEditorPanel : BaseUIForm
 
         GeneralSize.text = Mathf.Round(ci.GeneralSize / 10) + "cm";
         Mass.text = Mathf.Round(ci.Mass) + "kg";
+
+        DietButton.onClick.RemoveAllListeners();
+        DietButton.onClick.AddListener(delegate
+        {
+            if (string.IsNullOrEmpty(NameInputField.text))
+            {
+                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                cp.Initialize("Please set the name first", "Confirm", null, delegate { cp.CloseUIForm(); }, delegate { });
+                return;
+            }
+            else
+            {
+                DietPanel.gameObject.SetActive(true);
+                DietPanel.Refresh(ci);
+            }
+        });
     }
 
     public void LoadInfoForLeftPanel(GeoGroupInfo ci)
     {
         RefreshLeftPanelInfo(ci);
+        NameInputField.text = ci.Name;
         FertilityRateInputField.text = ci.FertilityRate.ToString();
         OffspringSize.text = ci.OffspringSizePercent.ToString();
         MatureSize.text = ci.MatureSizePercent.ToString();
         MinSize.text = ci.MinSizePercent.ToString();
         MaxSize.text = ci.MaxSizePercent.ToString();
+
+        GrowthRate.text = Mathf.RoundToInt(ci.GrowUpRate * 1000f).ToString();
+        StartNumber.text = ci.StartNumber.ToString();
         MaxNumber.text = ci.MaxNumber.ToString();
     }
 
@@ -161,6 +182,35 @@ public class CreatureEditorPanel : BaseUIForm
             ci.MaxNumber = 100;
             MaxNumber.text = "100";
         }
+
+        if (int.TryParse(StartNumber.text, out int sn))
+        {
+            ci.StartNumber = sn;
+        }
+        else
+        {
+            ci.StartNumber = 10;
+            StartNumber.text = "10";
+        }
+
+        if (int.TryParse(GrowthRate.text, out int gr))
+        {
+            ci.GrowUpRate = gr / 1000f;
+        }
+        else
+        {
+            ci.GrowUpRate = 0.001f;
+            GrowthRate.text = "1";
+        }
+
+        if (!string.IsNullOrWhiteSpace(NameInputField.text))
+        {
+            ci.Name = NameInputField.text;
+        }
+        else
+        {
+            ci.Name = null;
+        }
     }
 
     void Update()
@@ -202,10 +252,21 @@ public class CreatureEditorPanel : BaseUIForm
 
     public void OnReturnButtonClick()
     {
-        GameManager.Instance.BG.SetActive(false);
         CloseUIForm();
         NatureController.Instance.RecreateAllSpecies();
         NaturalPanel np = UIManager.Instance.ShowUIForms<NaturalPanel>();
         np.Initialize();
+    }
+
+    public override void Hide()
+    {
+        GameManager.Instance.BG.SetActive(false);
+        base.Hide();
+    }
+
+    public override void Display()
+    {
+        GameManager.Instance.BG.SetActive(true);
+        base.Display();
     }
 }

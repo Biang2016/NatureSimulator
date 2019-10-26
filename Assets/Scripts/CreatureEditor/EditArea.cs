@@ -1,9 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using instinctai.usr.behaviours;
-using UnityEngine.Events;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class EditArea : MonoBehaviour
 {
@@ -36,6 +32,7 @@ public class EditArea : MonoBehaviour
 
     public void LoadGeoGroupInfo(GeoGroupInfo ggi)
     {
+        Cur_GGI = ggi;
         foreach (GeoElement geo in GeoElements)
         {
             geo.PoolRecycle();
@@ -96,7 +93,7 @@ public class EditArea : MonoBehaviour
                         dfb.IsSelected = dfb.MyFunctionType == DrawFunctionButton.FunctionTypes.Select;
                     }
 
-                    Cursor.SetCursor(Cursor_Select, Vector2.zero, CursorMode.Auto);
+                    Cursor.SetCursor(Cursor_Select, Vector2.one * 3f, CursorMode.Auto);
                     break;
                 }
                 case States.Draw:
@@ -119,7 +116,7 @@ public class EditArea : MonoBehaviour
                 case States.Delete:
                 {
                     UnSelect();
-                    Cursor.SetCursor(Cursor_Eraser, Vector2.one * 16, CursorMode.Auto);
+                    Cursor.SetCursor(Cursor_Eraser, new Vector2(5, 27f), CursorMode.Auto);
                     break;
                 }
             }
@@ -182,7 +179,8 @@ public class EditArea : MonoBehaviour
 
     public void RefreshInfo()
     {
-        Cur_GGI = new GeoGroupInfo();
+        if (Cur_GGI == null) Cur_GGI = new GeoGroupInfo();
+        Cur_GGI.GeoInfos.Clear();
         foreach (GeoElement geo in GeoElements)
         {
             GeoInfo gi = geo.ExportGeoInfo();
@@ -310,12 +308,27 @@ public class EditArea : MonoBehaviour
         lastMousePos = endPos;
     }
 
+    public float MinGeoDrawThreshold = 0.1f;
+
     public void OnMouseLeftUp()
     {
         if (MyState == States.DuringDrawing)
         {
-            MyState = States.Draw;
+            if (CurrentEditGeoElement != null)
+            {
+                Vector2 startPos = MouseLeftDownPos;
+                endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                float size = (endPos - startPos).magnitude;
+                if (size < MinGeoDrawThreshold)
+                {
+                    CurrentEditGeoElement.PoolRecycle();
+                    GeoElements.Remove(CurrentEditGeoElement);
+                    Debug.Log("size" + size);
+                }
+            }
+
             CurrentEditGeoElement = null;
+            MyState = States.Draw;
         }
 
         if (MyState == States.Select)
@@ -414,29 +427,34 @@ public class EditArea : MonoBehaviour
         if (GeoElements.Count == 0)
         {
             ConfirmPanel cp1 = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-            cp1.Initialize("Please draw something", "Confirm", "Cancel", delegate { cp1.CloseUIForm(); }, delegate { cp1.CloseUIForm(); });
+            cp1.Initialize("Please draw something", "Confirm", null, delegate { cp1.CloseUIForm(); }, delegate { cp1.CloseUIForm(); });
+            return;
+        }
+
+        if (Cur_GGI.Name == null)
+        {
+            ConfirmPanel cp1 = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            cp1.Initialize("Please input the name", "Confirm", null, delegate { cp1.CloseUIForm(); }, delegate { cp1.CloseUIForm(); });
             return;
         }
 
         ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-        cp.Initialize("Please input species name:", "Confirm", "Cancel", delegate
+        cp.Initialize("Confirm to save? Species name: " + Cur_GGI.Name, "Confirm", "Cancel", delegate
         {
-            if (!string.IsNullOrEmpty(cp.InputText1))
+            Cur_GGI.ResetCenterAndSortingOrder();
+            if (NatureController.Instance.AllGeoGroupInfo.ContainsKey(Cur_GGI.Name))
             {
-                Cur_GGI.Name = cp.InputText1;
-                Cur_GGI.ResetCenterAndSortingOrder();
-                if (NatureController.Instance.AllGeoGroupInfo.ContainsKey(Cur_GGI.Name))
-                {
-                    NatureController.Instance.AllGeoGroupInfo[Cur_GGI.Name] = Cur_GGI;
-                }
-                else
-                {
-                    NatureController.Instance.AllGeoGroupInfo.Add(Cur_GGI.Name, Cur_GGI);
-                }
-
-                cp.CloseUIForm();
+                NatureController.Instance.AllGeoGroupInfo[Cur_GGI.Name] = Cur_GGI;
             }
-        }, delegate { cp.CloseUIForm(); }, "Species name");
+            else
+            {
+                NatureController.Instance.AllGeoGroupInfo.Add(Cur_GGI.Name, Cur_GGI);
+            }
+
+            UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().OnReturnButtonClick();
+
+            cp.CloseUIForm();
+        }, delegate { cp.CloseUIForm(); });
     }
 
     public void UnSelect()

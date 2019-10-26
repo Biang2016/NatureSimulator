@@ -29,7 +29,7 @@ MonoBehaviour:
   Children:
   - Lf6DktPEPkqJr5C1k5eBgA
   - 0VljCgzMKEiLY3fLISbAfA
-  InternalIndex: 15
+  InternalIndex: 14
   IsDynamic: 0
 --- !u!114 &-5807204701132584368
 MonoBehaviour:
@@ -100,11 +100,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.GrowUp
+    FullName: instinctai.usr.behaviours.Creature.GrowUp
     ShortName: GrowUp
     CallSpec: GrowUp
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.GrowUp
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.GrowUp
     Parameters:
       keys: []
       values: []
@@ -180,11 +180,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.FindMate
+    FullName: instinctai.usr.behaviours.Creature.FindMate
     ShortName: FindMate
     CallSpec: FindMate
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.FindMate
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.FindMate
     Parameters:
       keys: []
       values: []
@@ -354,11 +354,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.FindPredators
+    FullName: instinctai.usr.behaviours.Creature.FindPredators
     ShortName: FindPredators
     CallSpec: FindPredators
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.FindPredators
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.FindPredators
     Parameters:
       keys: []
       values: []
@@ -392,7 +392,7 @@ MonoBehaviour:
   resultBehaviour: 0
   Owner: {fileID: 11400000}
   Children: []
-  InternalIndex: 12
+  InternalIndex: 11
   Latch: 1
   LatchTimeout: 0.2
   LatchJumpTarget: 
@@ -434,11 +434,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.MoveToMate
+    FullName: instinctai.usr.behaviours.Creature.MoveToMate
     ShortName: MoveToMate
     CallSpec: MoveToMate
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToMate
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.MoveToMate
     Parameters:
       keys: []
       values: []
@@ -514,11 +514,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.FindPreys
+    FullName: instinctai.usr.behaviours.Creature.FindPreys
     ShortName: FindPreys
     CallSpec: FindPreys
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.FindPreys
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.FindPreys
     Parameters:
       keys: []
       values: []
@@ -625,11 +625,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.Wander
+    FullName: instinctai.usr.behaviours.Creature.Wander
     ShortName: Wander
     CallSpec: Wander
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.Wander
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.Wander
     Parameters:
       keys: []
       values: []
@@ -660,11 +660,11 @@ MonoBehaviour:
   - {fileID: -902030818706267898}
   - {fileID: -3589552624487873199}
   - {fileID: -5807204701132584368}
-  - {fileID: 5990241452072950195}
   - {fileID: -1010056451222749038}
   - {fileID: 3450449931644654156}
   - {fileID: 5679205567101396385}
   - {fileID: -6615354867983710406}
+  - {fileID: 5990241452072950195}
   SeparatorPos:
     serializedVersion: 2
     x: 1
@@ -672,8 +672,8 @@ MonoBehaviour:
     width: 150
     height: 100
   PropsScrollPos: {x: 0, y: 0}
-  ZoomLevel: 0
-  ViewCenter: {x: 498339.9, y: 499232.72}
+  ZoomLevel: 2
+  ViewCenter: {x: 498962, y: 499578.7}
   Namespace: 
   ClassName: 
   AssetFolder: 
@@ -686,7 +686,7 @@ MonoBehaviour:
   RequiresInit: 0
   GUID: P+D8lcFaO0uyxGpa3x2lyA
   RequiredComponents: []
-  CodeKey: 5o7YeLpPXkuahnji/HlKQw
+  CodeKey: 3ceB/SizhEqDwGbNNfs8fQ
   SchemaVersion: 1
   ___GenerateNodeComments: 0
   ___GenerateNodeTrace: 0
@@ -748,7 +748,7 @@ MonoBehaviour:
   resultBehaviour: 0
   Owner: {fileID: 11400000}
   Children: []
-  InternalIndex: 13
+  InternalIndex: 12
   Latch: 1
   LatchTimeout: 0.2
   LatchJumpTarget: 
@@ -790,11 +790,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.MoveToPrey
+    FullName: instinctai.usr.behaviours.Creature.MoveToPrey
     ShortName: MoveToPrey
     CallSpec: MoveToPrey
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToPrey
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.MoveToPrey
     Parameters:
       keys: []
       values: []
@@ -857,7 +857,7 @@ MonoBehaviour:
   resultBehaviour: 0
   Owner: {fileID: 11400000}
   Children: []
-  InternalIndex: 14
+  InternalIndex: 13
   Latch: 1
   LatchTimeout: 0.2
   LatchJumpTarget: 
@@ -899,11 +899,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.MoveToWander
+    FullName: instinctai.usr.behaviours.Creature.MoveToWander
     ShortName: MoveToWander
     CallSpec: MoveToWander
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToWander
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.MoveToWander
     Parameters:
       keys: []
       values: []
@@ -937,7 +937,7 @@ MonoBehaviour:
   resultBehaviour: 0
   Owner: {fileID: 11400000}
   Children: []
-  InternalIndex: 11
+  InternalIndex: 15
   Latch: 1
   LatchTimeout: 0.2
   LatchJumpTarget: 
@@ -979,11 +979,11 @@ MonoBehaviour:
     Declaration: 
     ClassLevelDeclaration: 
     TargetObject: this
-    FullName: instinctai.usr.behaviours.Dot.MoveToEscape
+    FullName: instinctai.usr.behaviours.Creature.MoveToEscape
     ShortName: MoveToEscape
     CallSpec: MoveToEscape
     ReturnValue: com.kupio.instinctai.NodeVal
-    MenuDescription: (This) instinctai.usr.behaviours.Dot.MoveToEscape
+    MenuDescription: (This) instinctai.usr.behaviours.Creature.MoveToEscape
     Parameters:
       keys: []
       values: []

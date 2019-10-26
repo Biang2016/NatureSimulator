@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 using instinctai.usr.behaviours;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NatureController : MonoSingleton<NatureController>
 {
@@ -16,23 +16,27 @@ public class NatureController : MonoSingleton<NatureController>
     public float ChasingSpeedFactor = 1.1f;
     public float WanderingSpeedFactor = 0.5f;
     public float FindingMateSpeedFactor = 1.0f;
+    public float MateTimeInterval = 2f;
 
     public float NutritionRatio = 0.6f;
-    public int SpeciesCountUpperLimit = 50;
 
     public int UpdateNFrames = 10;
 
     public void RecreateAllSpecies()
     {
         ClearAll();
-
-        foreach (KeyValuePair<string, GeoGroupInfo> kv in AllGeoGroupInfo)
+        NaturalPanel np = UIManager.Instance.GetBaseUIForm<NaturalPanel>();
+        np.RefreshButtonSelected();
+        foreach (string ggiName in AllSelectedGeoGroupInfoNames)
         {
+            GeoGroupInfo ggi = AllGeoGroupInfo[ggiName];
             Species species = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Species].AllocateGameObject<Species>(transform);
-            species.name = kv.Key + "_Species";
-            species.MyGeoGroupInfo = kv.Value;
-            AllSpecies.Add(kv.Key, species);
+            species.name = ggi.Name + "_Species";
+            species.MyGeoGroupInfo = ggi;
+            AllSpecies.Add(ggi.Name, species);
         }
+
+        np.Initialize();
     }
 
     public void ClearAll()
@@ -49,6 +53,7 @@ public class NatureController : MonoSingleton<NatureController>
         }
 
         AllSpecies.Clear();
+        AllSelectedGeoGroupInfoNames.Clear();
     }
 
     public void GetCirclePoints(float radius, int numberCount)
@@ -76,6 +81,18 @@ public class NatureController : MonoSingleton<NatureController>
 
     public Dictionary<string, Species> AllSpecies = new Dictionary<string, Species>();
     public Dictionary<string, GeoGroupInfo> AllGeoGroupInfo = new Dictionary<string, GeoGroupInfo>();
+    public HashSet<string> AllSelectedGeoGroupInfoNames = new HashSet<string>();
+
+    public float WholeMassInNature;
+
+    void Update()
+    {
+        WholeMassInNature = 0;
+        foreach (KeyValuePair<string, Species> kv in AllSpecies)
+        {
+            WholeMassInNature += kv.Value.WholeMassInSpecies;
+        }
+    }
 
     public void DestroyCreature(Creature creature)
     {
@@ -176,7 +193,61 @@ public class NatureController : MonoSingleton<NatureController>
         RecreateAllSpecies();
         foreach (KeyValuePair<string, Species> kv in AllSpecies)
         {
-            kv.Value.SpawnCreatures(10);
+            kv.Value.SpawnCreatures();
+        }
+    }
+
+    private string XMLPath = Application.streamingAssetsPath + "/CreatureLibrary.xml";
+
+    public void LoadAllSpeciesFromXML()
+    {
+        AllGeoGroupInfo.Clear();
+        AllSelectedGeoGroupInfoNames.Clear();
+        UIManager.Instance.GetBaseUIForm<NaturalPanel>().Initialize();
+
+        string text;
+        using (StreamReader sr = new StreamReader(XMLPath))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allCreaturesEle = doc.DocumentElement;
+
+        for (int i = 0; i < allCreaturesEle.ChildNodes.Count; i++)
+        {
+            XmlNode creature_ele = allCreaturesEle.ChildNodes[i];
+            GeoGroupInfo ggi = GeoGroupInfo.GenerateGeoGroupInfoFromXML(creature_ele);
+            AllGeoGroupInfo.Add(ggi.Name, ggi);
+            ggi.RefreshInfo();
+        }
+
+        RecreateAllSpecies();
+    }
+
+    public void OnSaveAllCreatures()
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(XMLPath))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+
+        XmlElement allCreaturesEle = doc.DocumentElement;
+        allCreaturesEle.RemoveAll();
+
+        foreach (KeyValuePair<string, GeoGroupInfo> kv in AllGeoGroupInfo)
+        {
+            kv.Value.ExportToXML(allCreaturesEle);
+        }
+
+        using (StreamWriter sw = new StreamWriter(XMLPath))
+        {
+            doc.Save(sw);
         }
     }
 }

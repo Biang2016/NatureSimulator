@@ -9,14 +9,14 @@ public class Species : PoolObject
 
     public GeoGroupInfo MyGeoGroupInfo;
 
-    public void SpawnCreatures(int number)
+    public void SpawnCreatures()
     {
-        StartCoroutine(Co_SpawnDots(number));
+        StartCoroutine(Co_SpawnDots());
     }
 
-    IEnumerator Co_SpawnDots(int number)
+    IEnumerator Co_SpawnDots()
     {
-        for (int i = 0; i < number; i++)
+        for (int i = 0; i < MyGeoGroupInfo.StartNumber; i++)
         {
             SpawnCreatures(0, NatureController.GetRandomPos(), true);
             yield return new WaitForEndOfFrame();
@@ -43,7 +43,7 @@ public class Species : PoolObject
             if (creature != callingCreature && creature.IsMateOf(callingCreature))
             {
                 float tempDic = Vector2.Distance(creature.transform.position, callingCreature.transform.position);
-                if (distance < tempDic)
+                if (tempDic < distance)
                 {
                     mateCreature = creature;
                     distance = tempDic;
@@ -52,5 +52,16 @@ public class Species : PoolObject
         }
 
         return mateCreature;
+    }
+
+    public float WholeMassInSpecies = 0;
+
+    void Update()
+    {
+        WholeMassInSpecies = 0;
+        foreach (Creature c in Creatures)
+        {
+            WholeMassInSpecies += c.MyGeoGroupInfo.Mass;
+        }
     }
 }

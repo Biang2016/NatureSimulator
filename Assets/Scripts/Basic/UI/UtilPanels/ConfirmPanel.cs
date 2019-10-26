@@ -16,7 +16,6 @@ public class ConfirmPanel : BaseUIForm
     [SerializeField] private Text InputFieldPlaceHolderText2;
     [SerializeField] private Text InputFieldPlaceHolderText3;
 
-
     void Awake()
     {
         UIType.InitUIType(

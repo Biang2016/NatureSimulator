@@ -172,8 +172,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer_GeoElement: 0
   BG: {fileID: 275217022}
+  NaturalBG: {fileID: 1475518461}
+  NatureCircle: {fileID: 251592806}
   Nature: {fileID: 251592804}
   ScaleFactor: 100
+  ColorCycleTime: 30
 --- !u!1 &230130165
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +266,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1430997352}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &251592806 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+    type: 3}
+  m_PrefabInstance: {fileID: 1430997352}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &275217022
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &275217023
 Transform:
   m_ObjectHideFlags: 0
@@ -568,6 +577,41 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.41411114
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.28627452
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4989030950849052011, guid: cfa99df019cc58a4c870e9fe3603ba23,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -623,46 +667,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030950849052008, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: EscapingDistanceThreshold
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: ChasingPreyDistanceThreshold
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: UpdateNFrames
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030949549726551, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.0093
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030949549726551, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.0093
-      objectReference: {fileID: 0}
-    - target: {fileID: 4989030949549726551, guid: cfa99df019cc58a4c870e9fe3603ba23,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0093
-      objectReference: {fileID: 0}
     - target: {fileID: 4989030950222721815, guid: cfa99df019cc58a4c870e9fe3603ba23,
         type: 3}
       propertyPath: m_Size.x
@@ -683,6 +687,66 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 192
       objectReference: {fileID: 0}
+    - target: {fileID: 4989030949549726551, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0093
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030949549726551, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0093
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030949549726551, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0093
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: EscapingDistanceThreshold
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: ChasingPreyDistanceThreshold
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: UpdateNFrames
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: MateTimeInterval
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: EatSizeThreshold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: EscapingDistanceFactor
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: ChasingPreyDistanceFactor
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: NutritionRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989030949192166652, guid: cfa99df019cc58a4c870e9fe3603ba23,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfa99df019cc58a4c870e9fe3603ba23, type: 3}
 --- !u!4 &1430997353 stripped
@@ -702,7 +766,7 @@ GameObject:
   - component: {fileID: 1475518460}
   - component: {fileID: 1475518461}
   m_Layer: 0
-  m_Name: BlackBG
+  m_Name: NaturalBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -716,7 +780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475518459}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.449, y: 0.657, z: 0}
+  m_LocalPosition: {x: -1.54, y: 1.24, z: 0}
   m_LocalScale: {x: 0.007227364, y: 0.010169706, z: 0.898}
   m_Children: []
   m_Father: {fileID: 150531400}
@@ -760,8 +824,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5764380d5f672764aab62c4e9c5054bf, type: 3}
+  m_Color: {r: 0.34450746, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1

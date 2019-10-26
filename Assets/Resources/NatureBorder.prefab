@@ -300,25 +300,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4989030950849052006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb1b0f1b1ce44364815d6be172920edf, type: 3}
+  m_Script: {fileID: 11500000, guid: d815e800b0eeb474bb00d255543fffaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EatSizeThreshold: 0.8
-  EscapingDistanceThreshold: 50
-  ChasingPreyDistanceThreshold: 100
-  NormalSpeed: 30
+  EatSizeThreshold: 0.5
+  EscapingDistanceFactor: 0.01
+  ChasingPreyDistanceFactor: 0.015
+  NormalSpeed: 100
   EscapingSpeedFactor: 1.2
-  ChasingSpeedFactor: 1.6
-  WanderingSpeedFactor: 0.4
-  FindingMateSpeedFactor: 0.8
-  NutritionRatio: 1
-  SpeciesCountUpperLimit: 100
+  ChasingSpeedFactor: 1.1
+  WanderingSpeedFactor: 0.5
+  FindingMateSpeedFactor: 1
+  NutritionRatio: 0.6
   UpdateNFrames: 10
-  ColorSet:
-  - {r: 0, g: 0.8484955, b: 1, a: 1}
-  - {r: 1, g: 0.12284151, b: 0, a: 1}
-  - {r: 1, g: 0.98480475, b: 0, a: 1}
-  - {r: 0.04830408, g: 1, b: 0, a: 1}
 --- !u!1001 &4989030949549726548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -326,11 +320,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4989030949510788654}
     m_Modifications:
-    - target: {fileID: 136601788223191927, guid: 2b77a3114e369fa44b0afacf3622770f,
-        type: 3}
-      propertyPath: m_Name
-      value: CircleEdge
-      objectReference: {fileID: 0}
     - target: {fileID: 136601788223191928, guid: 2b77a3114e369fa44b0afacf3622770f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -400,6 +389,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 136601788223191927, guid: 2b77a3114e369fa44b0afacf3622770f,
+        type: 3}
+      propertyPath: m_Name
+      value: CircleEdge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b77a3114e369fa44b0afacf3622770f, type: 3}

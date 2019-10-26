@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class ClientUtils
@@ -101,7 +100,7 @@ public class ClientUtils
         }
     }
 
-    public static Color HSL_2_RGB(float H, float S, float L)
+    public static Color HSL_2_RGB(float H, float S, float L, float alpha = 1.0f)
     {
         //H, S and L input range = 0 ÷ 1.0
         //R, G and B output range = 0 ÷ 255
@@ -134,7 +133,7 @@ public class ClientUtils
             B = Hue_2_RGB(var_1, var_2, H - (1.0f / 3));
         }
 
-        return new Color(R, G, B);
+        return new Color(R, G, B, alpha);
     }
 
     static float Hue_2_RGB(float v1, float v2, float vH) //Function Hue_2_RGB

@@ -40,8 +40,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 4154361693984694599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31d476c1f79441c08a111202fa7a7768, type: 3}
+  m_Script: {fileID: 11500000, guid: e9112ebba2aa8d44aaa95cfdd6c837a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dots: []
-  M_SpeciesType: 0
+  Creatures: []
+  MyGeoGroupInfo:
+    Name: 
+    Life: 0
+    Speed: 0
+    Damage: 0
+    Vision: 0
+    GeneralSize: 0
+    FertilityRate: 100
+    OffspringSizePercent: 50
+    MatureSizePercent: 70
+    MinSizePercent: 35
+    MaxSizePercent: 130
+    MaxNumber: 100
+    GrowUpRate: 0.001
+    Mass: 0
+    Center: {x: 0, y: 0}

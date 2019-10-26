@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Net.Http.Headers;
 
 public class GeoElement : PoolObject
 {
