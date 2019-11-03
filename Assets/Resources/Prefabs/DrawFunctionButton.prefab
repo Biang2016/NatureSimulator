@@ -260,8 +260,8 @@ MonoBehaviour:
   Icon: {fileID: 2359864233225043138}
   Button: {fileID: 459035111394939875}
   Sprites:
-  - {fileID: 21300000, guid: 1118ac3fbfe54864d9f655545be34a82, type: 3}
-  - {fileID: 21300000, guid: c6677c47db69c27468d14625f746691e, type: 3}
+  - {fileID: 21300000, guid: 4d3163e7b827d42e3b891fcdc828dd86, type: 3}
+  - {fileID: 21300000, guid: 32781937237f04e52800e812535be396, type: 3}
 --- !u!1 &7411833882823379805
 GameObject:
   m_ObjectHideFlags: 0

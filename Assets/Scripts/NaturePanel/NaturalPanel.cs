@@ -14,6 +14,7 @@ public class NaturalPanel : BaseUIForm
         UIType = new UIType();
         UIType.IsClickElsewhereClose = false;
         UIType.IsESCClose = false;
+        StopSimulate();
     }
 
     public void Initialize()

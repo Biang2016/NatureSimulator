@@ -260,12 +260,14 @@ public class CreatureEditorPanel : BaseUIForm
 
     public override void Hide()
     {
+        GameManager.Instance.NatureCircle.enabled = true;
         GameManager.Instance.BG.SetActive(false);
         base.Hide();
     }
 
     public override void Display()
     {
+        GameManager.Instance.NatureCircle.enabled = false;
         GameManager.Instance.BG.SetActive(true);
         base.Display();
     }
