@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AllCreatures>
   <Creature name="Fish">
-    <CreatureInfo FertilityRate="300" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="5" MaxNumber="30" Diets="Shrimp" Predators="" />
+    <CreatureInfo FertilityRate="300" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="5" MaxNumber="30" Diets="Shrimp" Predators="Turitor" />
     <GeoInfos>
       <GeoInfo GeoType="Triangle" Position="-10.28964,56.0603" Rotation="0,0,-0.5359011,0.8442808" Color="1.015079,0.08015871,0.4808391,1" Size="0.04368351,0.04368351" SortingOrder="2" />
       <GeoInfo GeoType="Triangle" Position="156.056,-75.71547" Rotation="0,0,-0.5471795,0.8370153" Color="1.015079,0.08015871,0.4808391,1" Size="0.02025838,0.02025838" SortingOrder="4" />
-      <GeoInfo GeoType="Square" Position="202.8354,-135.6579" Rotation="0,0,-0.6008086,0.7993929" Color="1.015079,0.08015871,0.4808391,1" Size="0.004840313,0.004840313" SortingOrder="12" />
       <GeoInfo GeoType="Square" Position="111.1986,51.83966" Rotation="0,0,-0.5637378,0.8259538" Color="1.015079,0.08015871,0.4808391,1" Size="0.003021901,0.003021901" SortingOrder="16" />
       <GeoInfo GeoType="Square" Position="-9.546295,-143.5311" Rotation="0,0,-0.5790629,0.8152829" Color="1.015079,0.08015871,0.4808391,1" Size="0.002786061,0.002786061" SortingOrder="20" />
       <GeoInfo GeoType="Square" Position="-8.352798,-76.79179" Rotation="0,0,-0.7687947,0.6394957" Color="-0.01349205,0.823016,0.8230158,1" Size="0.001679853,0.001679853" SortingOrder="25" />
+      <GeoInfo GeoType="Square" Position="205.1563,-139.1846" Rotation="0,0,-0.7473032,0.6644833" Color="0,0,0,1" Size="0.004591373,0.004591373" SortingOrder="36" />
     </GeoInfos>
   </Creature>
   <Creature name="Shrimp">
-    <CreatureInfo FertilityRate="200" OffspringSizePercent="20" MatureSizePercent="70" MinSizePercent="40" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="20" MaxNumber="100" Diets="Seeweed" Predators="Fish" />
+    <CreatureInfo FertilityRate="200" OffspringSizePercent="20" MatureSizePercent="70" MinSizePercent="40" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="20" MaxNumber="100" Diets="Seeweed" Predators="Fish,Crazy Fish,Turitor" />
     <GeoInfos>
       <GeoInfo GeoType="Triangle" Position="-320.7071,135.3811" Rotation="0,0,-0.2285521,0.9735317" Color="-0.01428568,0.4918367,0.8714285,1" Size="0.009870903,0.009870903" SortingOrder="2" />
       <GeoInfo GeoType="Triangle" Position="-296.3458,230.8783" Rotation="0,0,0.3340245,0.9425644" Color="-0.01428568,0.4918367,0.8714285,1" Size="0.0098913,0.0098913" SortingOrder="4" />
@@ -38,7 +38,7 @@
     </GeoInfos>
   </Creature>
   <Creature name="Seeweed">
-    <CreatureInfo FertilityRate="300" OffspringSizePercent="50" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="130" GrowUpRate="0.5" StartNumber="100" MaxNumber="300" Diets="" Predators="Shrimp" />
+    <CreatureInfo FertilityRate="150" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="130" GrowUpRate="0.3" StartNumber="50" MaxNumber="100" Diets="" Predators="Shrimp,Turitor" />
     <GeoInfos>
       <GeoInfo GeoType="Hexagon" Position="-194.6346,-69.49313" Rotation="0,0,-0.2802479,0.9599277" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.01346973,0.01346973" SortingOrder="2" />
       <GeoInfo GeoType="Hexagon" Position="-186.1402,-25.80772" Rotation="0,0,0.3708096,0.9287089" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.006664095,0.006664095" SortingOrder="4" />
@@ -49,6 +49,35 @@
       <GeoInfo GeoType="Hexagon" Position="-272.2975,-107.1111" Rotation="0,0,-0.2779492,0.9605958" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.005428682,0.005428682" SortingOrder="22" />
       <GeoInfo GeoType="Hexagon" Position="-141.2414,-29.44818" Rotation="0,0,-0.3162282,0.9486831" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.006039316,0.006039316" SortingOrder="24" />
       <GeoInfo GeoType="Hexagon" Position="-113.3312,-14.88639" Rotation="0,0,-0.3310077,0.9436281" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.004640454,0.004640454" SortingOrder="26" />
+    </GeoInfos>
+  </Creature>
+  <Creature name="Crazy Fish">
+    <CreatureInfo FertilityRate="100" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0.001" StartNumber="3" MaxNumber="100" Diets="Shrimp" Predators="Turitor" />
+    <GeoInfos>
+      <GeoInfo GeoType="Triangle" Position="-98.04749,120.5353" Rotation="0,0,-0.4260705,0.90469" Color="0.4444444,0.3854876,0.03174603,1" Size="0.04627839,0.04627839" SortingOrder="2" />
+      <GeoInfo GeoType="Circle" Position="54.23984,242.0872" Rotation="0,0,-0.2006486,0.9796633" Color="0.2653065,-0.01587301,0.968254,1" Size="0.01827592,0.01827592" SortingOrder="4" />
+      <GeoInfo GeoType="Circle" Position="-99.86137,-193.9461" Rotation="0,0,-0.1378031,0.9904597" Color="0.2653065,-0.01587301,0.968254,1" Size="0.02018606,0.02018606" SortingOrder="6" />
+      <GeoInfo GeoType="Square" Position="-8.0625,-94.48087" Rotation="0,0,-0.1750169,0.9845654" Color="0.2653065,-0.01587301,0.968254,1" Size="0.004388535,0.004388535" SortingOrder="8" />
+      <GeoInfo GeoType="Square" Position="3.541473,-267.278" Rotation="0,0,-0.6693589,0.7429392" Color="0.2653065,-0.01587301,0.968254,1" Size="0.003376043,0.003376043" SortingOrder="10" />
+      <GeoInfo GeoType="Square" Position="-173.4147,-297.0922" Rotation="0,0,-0.999993,0.003756947" Color="0.2653065,-0.01587301,0.968254,1" Size="0.003412002,0.003412002" SortingOrder="12" />
+      <GeoInfo GeoType="Square" Position="166.6093,209.715" Rotation="0,0,-0.5595231,0.8288147" Color="0.2653065,-0.01587301,0.968254,1" Size="0.002973038,0.002973038" SortingOrder="14" />
+      <GeoInfo GeoType="Square" Position="136.1544,325.4453" Rotation="0,0,-0.01500049,0.9998875" Color="0.2653065,-0.01587301,0.968254,1" Size="0.003012366,0.003012366" SortingOrder="16" />
+      <GeoInfo GeoType="Square" Position="62.93936,126.8018" Rotation="0,0,-0.8935139,0.4490356" Color="0.2653065,-0.01587301,0.968254,1" Size="0.002556322,0.002556322" SortingOrder="18" />
+      <GeoInfo GeoType="Square" Position="-15.41229,331.7457" Rotation="0,0,0.6683215,0.7438725" Color="0.2653065,-0.01587301,0.968254,1" Size="0.00258252,0.00258252" SortingOrder="20" />
+      <GeoInfo GeoType="Square" Position="-231.0518,-218.6961" Rotation="0,0,-0.958999,-0.2834095" Color="0.2653065,-0.01587301,0.968254,1" Size="0.003613458,0.003613458" SortingOrder="22" />
+    </GeoInfos>
+  </Creature>
+  <Creature name="Turitor">
+    <CreatureInfo FertilityRate="100" OffspringSizePercent="50" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0" StartNumber="5" MaxNumber="12" Diets="Fish,Shrimp,Seeweed,Crazy Fish" Predators="" />
+    <GeoInfos>
+      <GeoInfo GeoType="Circle" Position="-363.4161,190.7985" Rotation="0,0,-0.3234804,0.9462349" Color="0.6666667,0.6666667,0.6666667,1" Size="0.01647299,0.01647299" SortingOrder="2" />
+      <GeoInfo GeoType="Circle" Position="-386.4409,184.2284" Rotation="0,0,-0.4780076,0.8783557" Color="0.2653065,-0.01587301,0.968254,1" Size="0.007247288,0.007247288" SortingOrder="4" />
+      <GeoInfo GeoType="Square" Position="-219.4887,38.36793" Rotation="0,0,-0.9028646,0.429925" Color="0.2653065,-0.01587301,0.968254,1" Size="0.02540956,0.02540956" SortingOrder="6" />
+      <GeoInfo GeoType="Triangle" Position="-154.3081,230.0341" Rotation="0,0,0.01936473,0.9998125" Color="0.2653065,-0.01587301,0.968254,1" Size="0.01150066,0.01150066" SortingOrder="8" />
+      <GeoInfo GeoType="Triangle" Position="-34.31937,140.1594" Rotation="0,0,-0.08779834,0.9961383" Color="0.2653065,-0.01587301,0.968254,1" Size="0.01232671,0.01232671" SortingOrder="10" />
+      <GeoInfo GeoType="Triangle" Position="-422.1697,-54.632" Rotation="0,0,-0.9888979,-0.1485966" Color="0.2653065,-0.01587301,0.968254,1" Size="0.01341871,0.01341871" SortingOrder="12" />
+      <GeoInfo GeoType="Triangle" Position="-267.0083,-165.9748" Rotation="0,0,-0.9752016,0.2213184" Color="0.2653065,-0.01587301,0.968254,1" Size="0.01001911,0.01001911" SortingOrder="14" />
+      <GeoInfo GeoType="Hexagon" Position="-205.6968,19.51036" Rotation="0,0,-0.432905,0.9014395" Color="0.04761904,0.6666667,0.6666666,1" Size="0.01402675,0.01402675" SortingOrder="16" />
     </GeoInfos>
   </Creature>
 </AllCreatures>
