@@ -231,7 +231,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5
-  m_Depth: 2
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 311
@@ -418,11 +418,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8243279409502879114, guid: 1a882fad410be1e4ea74defb6b29c74e,
-        type: 3}
-      propertyPath: m_Depth
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2430713511453622909, guid: 1a882fad410be1e4ea74defb6b29c74e,
         type: 3}
