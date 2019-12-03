@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class NaturalPanel : BaseUIForm
 {
     [SerializeField] private Transform LeftPanel;
+    [SerializeField] private GameObject CoverImage;
     public List<ButtonOfSpecies> ButtonOfSpeciesList = new List<ButtonOfSpecies>();
 
     void Awake()
     {
+        CoverImage.SetActive(true);
+        RestartButton.gameObject.SetActive(false);
+        PauseButton.gameObject.SetActive(false);
         SimulateSpeed = 1.0f;
         UIType = new UIType();
         UIType.IsClickElsewhereClose = false;

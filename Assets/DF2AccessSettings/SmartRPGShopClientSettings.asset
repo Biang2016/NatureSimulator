@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac7fee57eff4fd41b486ac3d14f32f4, type: 3}
   m_Name: SmartRPGShopClientSettings
   m_EditorClassIdentifier: 
-  projectId: small-talk-1-qfhywa
-  credentialsFileName: small-talk-1-qfhywa-bc7909e17e45
-  serviceAccount: alien-809@small-talk-1-qfhywa.iam.gserviceaccount.com
+  projectId: naturesimulatorhelper-edydqv
+  credentialsFileName: naturesimulatorhelper-edydqv-c4e0309da2b5
+  serviceAccount: dialogflow-ovtrlm@naturesimulatorhelper-edydqv.iam.gserviceaccount.com
   languageCode: en-US
