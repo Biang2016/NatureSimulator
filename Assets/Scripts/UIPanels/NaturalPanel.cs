@@ -60,6 +60,11 @@ public class NaturalPanel : BaseUIForm
         CloseUIForm();
     }
 
+    public void OnCoverImageClick()
+    {
+        UIManager.Instance.ShowUIForms<QAPanel>();
+    }
+
     [SerializeField] private Slider SimulateSpeedSlider;
     [SerializeField] private Text SpeedText;
 

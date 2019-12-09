@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 // HOW PLAYER CAN UNDERSTAND THE UNDERLINE MODEL OF YOUR GAME!!!!!!!
 
 public class QAPanel : BaseUIForm
 {
     [SerializeField] private Transform TextContainer;
+    [SerializeField] private ScrollRect ScrollView;
     private List<TextBubble> TextBubbles = new List<TextBubble>();
 
     void Awake()
@@ -19,6 +22,11 @@ public class QAPanel : BaseUIForm
         UIType.UIForm_LucencyType = UIFormLucencyTypes.Penetrable;
     }
 
+    void Start()
+    {
+        GenerateText("I'm your Geometry World assistant. If you have any question about this world or the species, you can ask me here.", TextBubble.Alignment.Left);
+    }
+
     public void Reset()
     {
         foreach (TextBubble textBubble in TextBubbles)
@@ -29,10 +37,11 @@ public class QAPanel : BaseUIForm
         TextBubbles.Clear();
     }
 
-    public void GenerateText(string text)
+    public void GenerateText(string text, TextBubble.Alignment align)
     {
         TextBubble tb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.TextBubble].AllocateGameObject<TextBubble>(TextContainer);
-        tb.Init(text);
+        tb.Init(text, align);
         TextBubbles.Add(tb);
+        ScrollView.ScrollToBottom();
     }
 }

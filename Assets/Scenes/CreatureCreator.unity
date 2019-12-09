@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 150531400}
   - component: {fileID: 150531401}
+  - component: {fileID: 150531402}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -177,6 +178,18 @@ MonoBehaviour:
   Nature: {fileID: 251592804}
   ScaleFactor: 100
   ColorCycleTime: 30
+--- !u!114 &150531402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150531399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c421995d45d814ebd501f6efdb76e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &230130165
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +748,7 @@ PrefabInstance:
     - target: {fileID: 4989030950849052010, guid: cfa99df019cc58a4c870e9fe3603ba23,
         type: 3}
       propertyPath: NutritionRatio
-      value: 1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4989030949192166652, guid: cfa99df019cc58a4c870e9fe3603ba23,
         type: 3}

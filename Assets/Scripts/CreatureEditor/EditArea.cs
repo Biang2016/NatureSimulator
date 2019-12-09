@@ -451,8 +451,8 @@ public class EditArea : MonoBehaviour
                 NatureController.Instance.AllGeoGroupInfo.Add(Cur_GGI.Name, Cur_GGI);
             }
 
+            GameToDF2Manager.Instance.OnAddSpeciesToEntity(new List<string> {Cur_GGI.Name});
             UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().OnReturnButtonClick();
-
             cp.CloseUIForm();
         }, delegate { cp.CloseUIForm(); });
     }

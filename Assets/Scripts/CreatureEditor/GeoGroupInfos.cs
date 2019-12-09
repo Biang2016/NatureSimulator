@@ -221,12 +221,18 @@ public class GeoGroupInfo
 
         foreach (string diet in diets)
         {
-            ggi.Diets.Add(diet);
+            if (!string.IsNullOrWhiteSpace(diet))
+            {
+                ggi.Diets.Add(diet);
+            }
         }
 
         foreach (string p in predators)
         {
-            ggi.Predators.Add(p);
+            if (!string.IsNullOrWhiteSpace(p))
+            {
+                ggi.Predators.Add(p);
+            }
         }
 
         XmlNode geoInfos_element = creatureElement.ChildNodes[1];

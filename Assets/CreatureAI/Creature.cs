@@ -35,6 +35,9 @@ namespace instinctai.usr.behaviours
 
         [SerializeField] private float size;
 
+        public float Life;
+        private float Damage;
+
         public float Size
         {
             get { return size; }
@@ -58,7 +61,7 @@ namespace instinctai.usr.behaviours
         [SerializeField] private GeoGroup GeoGroup;
         public Rigidbody2D Rigidbody2D;
 
-        public float BasicSpeed => MyGeoGroupInfo.Speed / 1000f * NatureController.Instance.NormalSpeed;
+        public float BasicSpeed => MyGeoGroupInfo.Speed / 1000f * NatureController.Instance.NormalSpeed * (1 - Mathf.Abs(Size - (MyGeoGroupInfo.MaxSize + MyGeoGroupInfo.MinSize) / 2f) / (MyGeoGroupInfo.MaxSize - MyGeoGroupInfo.MinSize) * 2f * 0.5f);
 
         public string M_SpeciesName;
         public Species My_Species;
@@ -75,6 +78,9 @@ namespace instinctai.usr.behaviours
             {
                 Size = _size;
             }
+
+            Life = ci.Life * Size / ci.MaxSize;
+            Damage = ci.Damage * Size / ci.MaxSize;
 
             GeoGroup?.PoolRecycle();
             GeoGroup = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.GeoGroup].AllocateGameObject<GeoGroup>(transform);
@@ -148,6 +154,7 @@ namespace instinctai.usr.behaviours
         {
             if (Destroyed) return NodeVal.Success;
             Size = Mathf.Min(MyGeoGroupInfo.MaxSize, MyGeoGroupInfo.GrowUpRate * Size * Time.deltaTime + Size);
+            Life = MyGeoGroupInfo.GrowUpRate * Life * Time.deltaTime + Life;
             try
             {
                 if (Vector2.Distance(transform.position, Vector2.zero) > 5.40f * 2)
@@ -174,8 +181,15 @@ namespace instinctai.usr.behaviours
             {
                 if (o.IsPreyOf(this))
                 {
-                    Size = (int) Mathf.Sqrt(Size * Size + o.Size * o.Size * NatureController.Instance.NutritionRatio);
-                    NatureController.Instance.DestroyCreature(o);
+                    float nutrition = Damage * NatureController.Instance.NutritionRatio;
+                    o.Life -= Damage;
+                    if (o.Life <= 0)
+                    {
+                        NatureController.Instance.DestroyCreature(o);
+                    }
+
+                    Size = Mathf.Min(Size + nutrition / Life * Size, MyGeoGroupInfo.MaxSize);
+                    Life += nutrition;
                     return;
                 }
 

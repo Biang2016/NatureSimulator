@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AllCreatures>
   <Creature name="Fish">
-    <CreatureInfo FertilityRate="300" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="5" MaxNumber="30" Diets="Shrimp" Predators="Turitor" />
+    <CreatureInfo FertilityRate="300" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="5" MaxNumber="30" Diets="Shrimp" Predators="Tortoise" />
     <GeoInfos>
       <GeoInfo GeoType="Triangle" Position="-10.28964,56.0603" Rotation="0,0,-0.5359011,0.8442808" Color="1.015079,0.08015871,0.4808391,1" Size="0.04368351,0.04368351" SortingOrder="2" />
       <GeoInfo GeoType="Triangle" Position="156.056,-75.71547" Rotation="0,0,-0.5471795,0.8370153" Color="1.015079,0.08015871,0.4808391,1" Size="0.02025838,0.02025838" SortingOrder="4" />
@@ -12,7 +12,7 @@
     </GeoInfos>
   </Creature>
   <Creature name="Shrimp">
-    <CreatureInfo FertilityRate="200" OffspringSizePercent="20" MatureSizePercent="70" MinSizePercent="40" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="20" MaxNumber="100" Diets="Seeweed" Predators="Fish,Crazy Fish,Turitor" />
+    <CreatureInfo FertilityRate="200" OffspringSizePercent="20" MatureSizePercent="70" MinSizePercent="40" MaxSizePercent="100" GrowUpRate="-0.05" StartNumber="20" MaxNumber="100" Diets="Seeweed" Predators="Fish,Crazy Fish,Tortoise" />
     <GeoInfos>
       <GeoInfo GeoType="Triangle" Position="-320.7071,135.3811" Rotation="0,0,-0.2285521,0.9735317" Color="-0.01428568,0.4918367,0.8714285,1" Size="0.009870903,0.009870903" SortingOrder="2" />
       <GeoInfo GeoType="Triangle" Position="-296.3458,230.8783" Rotation="0,0,0.3340245,0.9425644" Color="-0.01428568,0.4918367,0.8714285,1" Size="0.0098913,0.0098913" SortingOrder="4" />
@@ -38,7 +38,7 @@
     </GeoInfos>
   </Creature>
   <Creature name="Seeweed">
-    <CreatureInfo FertilityRate="150" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="130" GrowUpRate="0.3" StartNumber="50" MaxNumber="100" Diets="" Predators="Shrimp,Turitor" />
+    <CreatureInfo FertilityRate="150" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="35" MaxSizePercent="130" GrowUpRate="0.3" StartNumber="50" MaxNumber="100" Diets="" Predators="Shrimp,Tortoise" />
     <GeoInfos>
       <GeoInfo GeoType="Hexagon" Position="-194.6346,-69.49313" Rotation="0,0,-0.2802479,0.9599277" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.01346973,0.01346973" SortingOrder="2" />
       <GeoInfo GeoType="Hexagon" Position="-186.1402,-25.80772" Rotation="0,0,0.3708096,0.9287089" Color="-0.01190478,0.7261905,0.0935374,1" Size="0.006664095,0.006664095" SortingOrder="4" />
@@ -52,7 +52,7 @@
     </GeoInfos>
   </Creature>
   <Creature name="Crazy Fish">
-    <CreatureInfo FertilityRate="100" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0.001" StartNumber="3" MaxNumber="100" Diets="Shrimp" Predators="Turitor" />
+    <CreatureInfo FertilityRate="100" OffspringSizePercent="30" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0.001" StartNumber="3" MaxNumber="100" Diets="Shrimp" Predators="Tortoise" />
     <GeoInfos>
       <GeoInfo GeoType="Triangle" Position="-98.04749,120.5353" Rotation="0,0,-0.4260705,0.90469" Color="0.4444444,0.3854876,0.03174603,1" Size="0.04627839,0.04627839" SortingOrder="2" />
       <GeoInfo GeoType="Circle" Position="54.23984,242.0872" Rotation="0,0,-0.2006486,0.9796633" Color="0.2653065,-0.01587301,0.968254,1" Size="0.01827592,0.01827592" SortingOrder="4" />
@@ -67,7 +67,7 @@
       <GeoInfo GeoType="Square" Position="-231.0518,-218.6961" Rotation="0,0,-0.958999,-0.2834095" Color="0.2653065,-0.01587301,0.968254,1" Size="0.003613458,0.003613458" SortingOrder="22" />
     </GeoInfos>
   </Creature>
-  <Creature name="Turitor">
+  <Creature name="Tortoise">
     <CreatureInfo FertilityRate="100" OffspringSizePercent="50" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0" StartNumber="5" MaxNumber="12" Diets="Fish,Shrimp,Seeweed,Crazy Fish" Predators="" />
     <GeoInfos>
       <GeoInfo GeoType="Circle" Position="-363.4161,190.7985" Rotation="0,0,-0.3234804,0.9462349" Color="0.6666667,0.6666667,0.6666667,1" Size="0.01647299,0.01647299" SortingOrder="2" />

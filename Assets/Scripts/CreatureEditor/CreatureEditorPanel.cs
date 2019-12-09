@@ -256,6 +256,7 @@ public class CreatureEditorPanel : BaseUIForm
         NatureController.Instance.RecreateAllSpecies();
         NaturalPanel np = UIManager.Instance.ShowUIForms<NaturalPanel>();
         np.Initialize();
+        UIManager.Instance.ShowUIForms<QAPanel>();
     }
 
     public override void Hide()

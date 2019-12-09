@@ -9,10 +9,6 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
     public enum PrefabNames
     {
-        BlackDot,
-        YellowDot,
-        RedDot,
-        GreenDot,
         Species,
         GeoButton,
         GeoElement,
