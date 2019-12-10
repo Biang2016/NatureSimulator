@@ -34,6 +34,42 @@ public class GeoGroupInfo
     public HashSet<string> Diets = new HashSet<string>();
     public HashSet<string> Predators = new HashSet<string>();
 
+    public GeoGroupInfo Clone()
+    {
+        GeoGroupInfo ggi = new GeoGroupInfo();
+
+        ggi.GeoInfos = new List<GeoInfo>();
+
+        foreach (GeoInfo gi in GeoInfos)
+        {
+            ggi.GeoInfos.Add(gi.Clone());
+        }
+
+        ggi.Name = Name;
+        ggi.FertilityRate = FertilityRate;
+        ggi.OffspringSizePercent = OffspringSizePercent;
+        ggi.MatureSizePercent = MatureSizePercent;
+        ggi.MinSizePercent = MinSizePercent;
+        ggi.MaxSizePercent = MaxSizePercent;
+        ggi.StartNumber = StartNumber;
+        ggi.MaxNumber = MaxNumber;
+        ggi.GrowUpRate = GrowUpRate;
+        foreach (string s in Diets)
+        {
+            ggi.Diets.Add(s);
+        }
+
+        foreach (string s in Predators)
+        {
+            ggi.Predators.Add(s);
+        }
+
+        ggi.ResetCenterAndSortingOrder();
+        ggi.RefreshInfo();
+
+        return ggi;
+    }
+
     public void ResetCenterAndSortingOrder()
     {
         int minSortingOrder = 999000;
@@ -80,34 +116,34 @@ public class GeoGroupInfo
             {
                 case GeoTypes.Circle:
                 {
-                    Life -= 3 * area;
-                    Speed -= 3 * area;
-                    Damage -= 5 * area;
-                    Vision += 20;
+                    Life -= 0 * area;
+                    Speed -= 0 * area;
+                    Damage -= 0 * area;
+                    Vision += 20 * area;
                     break;
                 }
                 case GeoTypes.Square:
                 {
                     Life += 5 * area;
-                    Speed += Mathf.Max(5, 10 * area);
-                    Damage -= 5 * area;
-                    Vision -= 3 * area;
+                    Speed += Mathf.Clamp(10 * area, 1f, 10f);
+                    Damage -= 0 * area;
+                    Vision -= 0 * area;
                     break;
                 }
                 case GeoTypes.Triangle:
                 {
-                    Life -= 5 * area;
-                    Speed -= 1 * area;
-                    Damage += 10;
-                    Vision -= 2 * area;
+                    Life -= 0 * area;
+                    Speed -= 0 * area;
+                    Damage += Mathf.Clamp(area, 3f, 25f);
+                    Vision -= 0 * area;
                     break;
                 }
                 case GeoTypes.Hexagon:
                 {
                     Life += 20 * area;
-                    Speed -= 4 * area;
-                    Damage -= 2 * area;
-                    Vision -= 3 * area;
+                    Speed -= 0 * area;
+                    Damage -= 0 * area;
+                    Vision -= 0 * area;
                     break;
                 }
             }

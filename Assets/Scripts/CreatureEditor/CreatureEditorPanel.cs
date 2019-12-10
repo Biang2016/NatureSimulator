@@ -252,6 +252,16 @@ public class CreatureEditorPanel : BaseUIForm
 
     public void OnReturnButtonClick()
     {
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize("Confirm to leave? Your changes will be discarded.", "Confirm", "Cancel", delegate
+        {
+            cp.CloseUIForm();
+            OnClose();
+        }, delegate { cp.CloseUIForm(); });
+    }
+
+    public void OnClose()
+    {
         CloseUIForm();
         NatureController.Instance.RecreateAllSpecies();
         NaturalPanel np = UIManager.Instance.ShowUIForms<NaturalPanel>();

@@ -88,6 +88,10 @@ public class NaturalPanel : BaseUIForm
     {
         isSimulationStart = true;
         NatureController.Instance.RestartSimulate();
+        Time.timeScale = SimulateSpeed;
+        StartButton.gameObject.SetActive(false);
+        PauseButton.gameObject.SetActive(true);
+        RestartButton.gameObject.SetActive(true);
     }
 
     public void ResumeSimulate()
@@ -98,11 +102,27 @@ public class NaturalPanel : BaseUIForm
         }
 
         Time.timeScale = SimulateSpeed;
+        StartButton.gameObject.SetActive(false);
+        PauseButton.gameObject.SetActive(true);
+        RestartButton.gameObject.SetActive(true);
     }
 
     public void StopSimulate()
     {
         Time.timeScale = 0f;
+        StartButton.gameObject.SetActive(true);
+        PauseButton.gameObject.SetActive(false);
+    }
+
+    public void ResetSimulator()
+    {
+        StopSimulate();
+        Initialize();
+        StartButton.gameObject.SetActive(true);
+        PauseButton.gameObject.SetActive(false);
+        RestartButton.gameObject.SetActive(false);
+        isSimulationStart = false;
+        SimulateSpeedSlider.value = 1f;
     }
 
     public float SimulateSpeed = 1.0f;

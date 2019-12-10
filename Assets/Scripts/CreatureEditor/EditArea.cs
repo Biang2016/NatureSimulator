@@ -32,7 +32,7 @@ public class EditArea : MonoBehaviour
 
     public void LoadGeoGroupInfo(GeoGroupInfo ggi)
     {
-        Cur_GGI = ggi;
+        Cur_GGI = ggi.Clone();
         foreach (GeoElement geo in GeoElements)
         {
             geo.PoolRecycle();
@@ -308,7 +308,7 @@ public class EditArea : MonoBehaviour
         lastMousePos = endPos;
     }
 
-    public float MinGeoDrawThreshold = 0.1f;
+    private float MinGeoDrawThreshold = 0.05f;
 
     public void OnMouseLeftUp()
     {
@@ -452,7 +452,7 @@ public class EditArea : MonoBehaviour
             }
 
             GameToDF2Manager.Instance.OnAddSpeciesToEntity(new List<string> {Cur_GGI.Name});
-            UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().OnReturnButtonClick();
+            UIManager.Instance.GetBaseUIForm<CreatureEditorPanel>().OnClose();
             cp.CloseUIForm();
         }, delegate { cp.CloseUIForm(); });
     }

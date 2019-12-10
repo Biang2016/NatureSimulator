@@ -45,7 +45,7 @@ public class ButtonOfSpecies : PoolObject
             kv.Value.Predators.Remove(Text.text);
         }
 
-        UIManager.Instance.GetBaseUIForm<NaturalPanel>().RestartSimulateButtonClick();
+        UIManager.Instance.GetBaseUIForm<NaturalPanel>().ResetSimulator();
         PoolRecycle();
     }
 

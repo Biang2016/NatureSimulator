@@ -61,7 +61,7 @@ namespace instinctai.usr.behaviours
         [SerializeField] private GeoGroup GeoGroup;
         public Rigidbody2D Rigidbody2D;
 
-        public float BasicSpeed => MyGeoGroupInfo.Speed / 1000f * NatureController.Instance.NormalSpeed * (1 - Mathf.Abs(Size - (MyGeoGroupInfo.MaxSize + MyGeoGroupInfo.MinSize) / 2f) / (MyGeoGroupInfo.MaxSize - MyGeoGroupInfo.MinSize) * 2f * 0.5f);
+        public float BasicSpeed => MyGeoGroupInfo.Speed / 1000f * NatureController.Instance.NormalSpeed * (1 - Mathf.Abs(Size - (MyGeoGroupInfo.MaxSize + MyGeoGroupInfo.MinSize) / 2f) / (MyGeoGroupInfo.MaxSize - MyGeoGroupInfo.MinSize) * 2f * 0.7f);
 
         public string M_SpeciesName;
         public Species My_Species;

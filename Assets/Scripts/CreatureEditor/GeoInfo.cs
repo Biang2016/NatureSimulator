@@ -11,6 +11,18 @@ public class GeoInfo
     public Vector2 Size;
     public int SortingOrder;
 
+    public GeoInfo Clone()
+    {
+        GeoInfo newGeoInfo = new GeoInfo();
+        newGeoInfo.GeoType = GeoType;
+        newGeoInfo.Position = Position;
+        newGeoInfo.Rotation = Rotation;
+        newGeoInfo.Color = Color;
+        newGeoInfo.Size = Size;
+        newGeoInfo.SortingOrder = SortingOrder;
+        return newGeoInfo;
+    }
+
     public void ExportToXML(XmlElement geoInfosElement)
     {
         geoInfosElement.SetAttribute("GeoType", GeoType.ToString());
