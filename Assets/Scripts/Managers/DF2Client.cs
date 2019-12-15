@@ -27,7 +27,6 @@ public class DF2Client : MonoSingleton<DF2Client>
         Client.ReactToContext("DefaultWelcomeIntent-followup", context => Debug.Log("Reacting to welcome followup"));
         Client.SessionCleared += sess => Debug.Log("Cleared session [" + SessionName + "]");
         Client.ClearSession(SessionName);
-        GameToDF2Manager.Instance.OnAddSpeciesToEntity(NatureController.Instance.AllGeoGroupInfo.Keys.ToList());
     }
 
     void Update()

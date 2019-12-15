@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class NaturalPanel : BaseUIForm
 
     void Awake()
     {
+        UIManager.Instance.ShowUIForms<QAPanel>();
         CoverImage.SetActive(true);
         RestartButton.gameObject.SetActive(false);
         PauseButton.gameObject.SetActive(false);
@@ -35,6 +37,8 @@ public class NaturalPanel : BaseUIForm
             ButtonOfSpeciesList.Add(bos);
             bos.Initialize(kv.Value);
         }
+        
+        GameToDF2Manager.Instance.OnAddSpeciesToEntity(NatureController.Instance.AllGeoGroupInfo.Keys.ToList());
     }
 
     public void RefreshButtonSelected()
@@ -58,11 +62,6 @@ public class NaturalPanel : BaseUIForm
         UIManager.Instance.GetBaseUIForm<NaturalPanel>().isSimulationStart = false;
         UIManager.Instance.ShowUIForms<CreatureEditorPanel>().Initialize(new GeoGroupInfo(), false);
         CloseUIForm();
-    }
-
-    public void OnCoverImageClick()
-    {
-        UIManager.Instance.ShowUIForms<QAPanel>();
     }
 
     [SerializeField] private Slider SimulateSpeedSlider;

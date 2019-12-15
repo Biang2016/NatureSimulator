@@ -26,7 +26,7 @@
     </GeoInfos>
   </Creature>
   <Creature name="Shrimp">
-    <CreatureInfo FertilityRate="300" OffspringSizePercent="40" MatureSizePercent="70" MinSizePercent="40" MaxSizePercent="100" GrowUpRate="-0.01" StartNumber="20" MaxNumber="100" Diets="Seeweed" Predators="Fish" />
+    <CreatureInfo FertilityRate="300" OffspringSizePercent="40" MatureSizePercent="70" MinSizePercent="40" MaxSizePercent="100" GrowUpRate="-0.01" StartNumber="20" MaxNumber="100" Diets="Seeweed" Predators="Fish,Tortoise" />
     <GeoInfos>
       <GeoInfo GeoType="Square" Position="-181.8541,113.0196" Rotation="0,0,-0.8506507,0.5257313" Color="-0.01428568,0.4918367,0.8714285,1" Size="0.009575663,0.009575663" SortingOrder="2" />
       <GeoInfo GeoType="Square" Position="-98.12607,70.54986" Rotation="0,0,-0.8537104,0.5207481" Color="-0.01428568,0.4918367,0.8714285,1" Size="0.009357427,0.009357427" SortingOrder="4" />
@@ -79,7 +79,7 @@
     </GeoInfos>
   </Creature>
   <Creature name="Tortoise">
-    <CreatureInfo FertilityRate="100" OffspringSizePercent="50" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0" StartNumber="3" MaxNumber="12" Diets="Fish" Predators="" />
+    <CreatureInfo FertilityRate="100" OffspringSizePercent="50" MatureSizePercent="70" MinSizePercent="60" MaxSizePercent="100" GrowUpRate="0" StartNumber="3" MaxNumber="12" Diets="Fish,Shrimp" Predators="" />
     <GeoInfos>
       <GeoInfo GeoType="Circle" Position="-125.5734,228.4164" Rotation="0,0,-0.3234804,0.9462349" Color="0.07857144,0.4452381,0.1309524,1" Size="0.01647299,0.01647299" SortingOrder="2" />
       <GeoInfo GeoType="Circle" Position="-124.3286,261.8914" Rotation="0,0,-0.4780076,0.8783557" Color="0.4465987,0.6293651,-0.01031744,1" Size="0.007247288,0.007247288" SortingOrder="4" />
@@ -94,7 +94,7 @@
       <GeoInfo GeoType="Triangle" Position="-126.1048,-349.7739" Rotation="0,0,0.5172109,0.855858" Color="0.3333333,0.3333333,0.3333333,1" Size="0.007702786,0.007702786" SortingOrder="37" />
       <GeoInfo GeoType="Hexagon" Position="-121.8256,-60.99873" Rotation="0,0,0.009614927,0.9999538" Color="0.09999999,0.3285714,0.1326531,1" Size="0.05025648,0.05025648" SortingOrder="39" />
       <GeoInfo GeoType="Square" Position="-116.9074,-318.1906" Rotation="0,0,0.008473911,0.9999641" Color="0.3333333,0.3333333,0.3333333,1" Size="0.007219879,0.007219879" SortingOrder="41" />
-      <GeoInfo GeoType="Hexagon" Position="-113.3312,-56.14479" Rotation="0,0,0.008848206,0.9999608" Color="0.3333333,0.3333333,0.3333333,1" Size="0.027302,0.027302" SortingOrder="55" />
+      <GeoInfo GeoType="Hexagon" Position="-113.3312,-56.14479" Rotation="0,0,0.008848207,0.9999608" Color="0.3333333,0.3333333,0.3333333,1" Size="0.027302,0.027302" SortingOrder="55" />
       <GeoInfo GeoType="Triangle" Position="-67.20317,121.2735" Rotation="0,0,0.5065461,0.8622129" Color="0.3333333,0.3333333,0.3333333,1" Size="0.01016071,0.01016071" SortingOrder="59" />
       <GeoInfo GeoType="Triangle" Position="-201.0496,117.1394" Rotation="0,0,0.5184298,0.8551202" Color="0.3333333,0.3333333,0.3333333,1" Size="0.01078518,0.01078518" SortingOrder="61" />
       <GeoInfo GeoType="Triangle" Position="-312.6753,-43.27467" Rotation="0,0,0.871031,0.491228" Color="0.3333333,0.3333333,0.3333333,1" Size="0.01212555,0.01212555" SortingOrder="63" />
