@@ -18,6 +18,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Start()
     {
+        UIManager.Instance.ShowUIForms<QAPanel>();
         UIManager.Instance.ShowUIForms<NaturalPanel>();
     }
 

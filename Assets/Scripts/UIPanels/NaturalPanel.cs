@@ -12,7 +12,6 @@ public class NaturalPanel : BaseUIForm
 
     void Awake()
     {
-        UIManager.Instance.ShowUIForms<QAPanel>();
         CoverImage.SetActive(true);
         RestartButton.gameObject.SetActive(false);
         PauseButton.gameObject.SetActive(false);
@@ -37,7 +36,7 @@ public class NaturalPanel : BaseUIForm
             ButtonOfSpeciesList.Add(bos);
             bos.Initialize(kv.Value);
         }
-        
+
         GameToDF2Manager.Instance.OnAddSpeciesToEntity(NatureController.Instance.AllGeoGroupInfo.Keys.ToList());
     }
 
@@ -161,5 +160,11 @@ public class NaturalPanel : BaseUIForm
     public void OnQuit()
     {
         Application.Quit();
+    }
+
+    public void OnClickCoverImage()
+    {
+        CoverImage.gameObject.SetActive(false);
+        UIManager.Instance.GetBaseUIForm<QAPanel>().ShowButton.gameObject.SetActive(true);
     }
 }

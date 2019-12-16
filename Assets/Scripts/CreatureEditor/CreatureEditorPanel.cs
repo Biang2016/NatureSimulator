@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CreatureEditorPanel : BaseUIForm
 {
+    [SerializeField] private ScrollRect EditMenuScrollRect;
     [SerializeField] private Transform TopMenu;
     public EditArea EditArea;
     [SerializeField] private Dictionary<GeoTypes, GeoButton> GeoButtons = new Dictionary<GeoTypes, GeoButton>();
@@ -22,6 +23,8 @@ public class CreatureEditorPanel : BaseUIForm
         EditArea.LoadGeoGroupInfo(ggi);
         UIManager.Instance.ShowUIForms<ConfirmPanel>().InputField1.text = ggi.Name;
         UIManager.Instance.CloseUIForm<ConfirmPanel>();
+        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) EditMenuScrollRect.transform));
+        EditMenuScrollRect.ScrollToTop();
     }
 
     void Start()

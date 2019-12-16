@@ -11,7 +11,7 @@ public class QAPanel : BaseUIForm
     [SerializeField] private Transform TextContainer;
     [SerializeField] private GameObject Panel;
     [SerializeField] private ScrollRect ScrollView;
-    [SerializeField] private Button ShowButton;
+    public Button ShowButton;
     [SerializeField] private Button HideButton;
     private List<TextBubble> TextBubbles = new List<TextBubble>();
 

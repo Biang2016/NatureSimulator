@@ -56,10 +56,13 @@ public static class Utils
 
     public static void ScrollToTop(this ScrollRect scrollRect)
     {
+        GameManager.Instance.StartCoroutine(ClientUtils.UpdateLayout((RectTransform) scrollRect.transform));
         scrollRect.normalizedPosition = new Vector2(0, 1);
     }
+
     public static void ScrollToBottom(this ScrollRect scrollRect)
     {
+        GameManager.Instance.StartCoroutine(ClientUtils.UpdateLayout((RectTransform) scrollRect.transform));
         scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 }
