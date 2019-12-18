@@ -12,7 +12,7 @@
 	<key>CFBundleExecutable</key>
 	<string>NatureSimulator</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Unity Player version 2019.2.3f1 (8e55c27a4621). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
+	<string>Unity Player version 2019.2.12f1 (b1a7e1fb4fa5). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>PlayerIcon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -38,7 +38,7 @@
 	<key>NSPrincipalClass</key>
 	<string>PlayerApplication</string>
 	<key>UnityBuildNumber</key>
-	<string>8e55c27a4621</string>
+	<string>b1a7e1fb4fa5</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.9.0</string>
 </dict>
